@@ -1,0 +1,1 @@
+(function(){const d=window.SIDA4_SLUTVERSION;document.querySelectorAll('#steg-4 [data-sida4]').forEach(e=>{const c=d[e.dataset.sida4];if(!c)throw Error('Sida 4: källvärde saknas');e.textContent=c.value.toLocaleString('sv-SE');});})();

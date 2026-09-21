@@ -1,0 +1,27 @@
+(function(){
+'use strict';
+const D=window.K9_STARTALDER_NY,box=document.getElementById('k9-kohort'),NS='http://www.w3.org/2000/svg';
+const names=['Göteborg','Övriga GR','Övriga Sverige','Avlidna, utvandrade eller okänt'],colors=['#3f5564','#008391','#674b99','#d53878'];
+const fmt=n=>n===null?'—':n.toLocaleString('sv-SE',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
+function node(tag,attrs={},text){const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);if(text!==undefined)e.textContent=text;return e;}
+const s=node('svg',{viewBox:'0 0 855 515',role:'group','aria-label':'Ålder 2005 och utfall 2025. Tolv åldersgrupper på samma skala, noll till hundra procent.'});
+function text(x,y,t,attrs={}){s.append(node('text',{x,y,fill:'#1f1f1f','font-size':12,...attrs},t));}
+box.innerHTML='<h3>Var finns åldersgrupperna tjugo år senare?</h3><p class="k9__reading"><strong>Ålder den 31 december 2005 · Utfall den 31 december 2025</strong></p><p class="k9__agehint"><strong>Utforska åldersgrupperna:</strong> för pekaren över en rad eller tryck på den. Raden markeras och rutan under diagrammet visar gruppens fyra utfall.</p><div class="k9__plot"></div><div class="k9__ageinfo" aria-live="polite"></div><p class="k9__note">Andel av hela respektive åldersgrupp i Göteborg 2005. Samma skala 0–100 % i alla fyra fält. Peka på eller välj en rad för att läsa värdena.</p><p class="k9__note">* Ålder som personerna skulle ha uppnått 2025. Startgruppen omfattar även dem som avlidit under perioden.</p><p class="k9__note">— = skyddad eller ej redovisad uppgift. Olöst geografi finns också som skyddad kategori för 25–29 och 30–44 år och ingår inte i de fyra fälten. Inga saknade värden har fyllts med noll.</p><p class="k9__source"></p><details><summary>Visa alla värden</summary><div class="k9__table"></div></details>';
+box.querySelector('.k9__source').textContent=window.RAPPORT_KALLA;
+text(0,56,'Ålder 2005',{'font-weight':700});
+text(781,35,'Ålder',{'font-weight':700});text(781,56,'2025*',{'font-weight':700});
+const endAges=['20 år','21–25 år','26–35 år','36–38 år','39–44 år','45–49 år','50–64 år','65–79 år','80–89 år','90–99 år','100–109 år','110+ år'];
+names.forEach((name,j)=>{const left=96+j*165,right=left+140;
+ if(j===3){text(left,18,'Avlidna, utvandrade',{'font-weight':700});text(left,35,'eller okänt',{'font-weight':700});}else text(left,26,name,{'font-weight':700});
+ [0,50,100].forEach(v=>{const x=left+v*1.4;s.append(node('line',{x1:x,x2:x,y1:66,y2:494,stroke:'#d1d9dc'}));text(x,56,v+' %',{'text-anchor':'middle','font-size':10});});
+});
+const info=box.querySelector('.k9__ageinfo');
+const highlight=node('rect',{x:0,y:0,width:855,height:32,fill:'#f1f4f5','pointer-events':'none'});s.prepend(highlight);
+function show(r){const index=D.rows.indexOf(r);highlight.setAttribute('y',69+index*35);s.querySelectorAll('[data-age-dot]').forEach(e=>{const chosen=Number(e.dataset.ageDot)===index;e.setAttribute('r',chosen?6:4.5);e.setAttribute('stroke',chosen?'#1f1f1f':'none');e.setAttribute('stroke-width',1.2);});s.querySelectorAll('[data-age-label]').forEach(e=>e.setAttribute('font-weight',Number(e.dataset.ageLabel)===index?'800':'400'));s.querySelectorAll('[role=button]').forEach((e,i)=>e.setAttribute('aria-pressed',String(i===index)));info.replaceChildren();const title=document.createElement('strong');title.textContent=r.age+(r.age.includes('år')?'':' år')+' vid starten · '+r.start.toLocaleString('sv-SE')+' personer';info.append(title);const values=document.createElement('div');values.className='k9__agevalues';r.cells.forEach((c,j)=>{const p=document.createElement('p');p.textContent=names[j]+': '+fmt(c.value);values.append(p);});info.append(values);}
+D.rows.forEach((r,i)=>{const y=84+i*35;text(781,y+4,endAges[i],{'font-size':11});text(0,y+4,r.age+(r.age.includes('år')?'':' år'),{'data-age-label':i});
+ r.cells.forEach((c,j)=>{const left=96+j*165;if(c.value===null){text(left+70,y+4,'—',{'text-anchor':'middle'});return;}const x=left+c.value*1.4;s.append(node('line',{x1:left,x2:x,y1:y,y2:y,stroke:colors[j],'stroke-width':2}));const dot=node('circle',{cx:x,cy:y,r:4.5,fill:colors[j],'data-age-dot':i});dot.append(node('title',{},r.age+' · '+names[j]+': '+fmt(c.value)));s.append(dot);text(c.value>75?x-9:x+9,y+4,fmt(c.value),{'text-anchor':c.value>75?'end':'start','font-size':11,'font-weight':600,'paint-order':'stroke',stroke:'#ffffff','stroke-width':3,'stroke-linejoin':'round'});});
+ const hit=node('rect',{x:0,y:y-15,width:855,height:32,fill:'transparent',tabindex:0,role:'button','aria-label':r.age+' vid starten. '+r.cells.map((c,j)=>names[j]+': '+fmt(c.value)).join('. ')});hit.addEventListener('mouseenter',()=>show(r));hit.addEventListener('focus',()=>show(r));hit.addEventListener('click',()=>show(r));hit.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(r);}});s.append(hit);
+});
+box.querySelector('.k9__plot').append(s);show(D.rows[1]);
+const table=document.createElement('table');const head=table.createTHead().insertRow();['Ålder 2005','Startantal',...names,'Ålder 2025*'].forEach(t=>{const c=document.createElement('th');c.scope='col';c.textContent=t;head.append(c);});const body=table.createTBody();D.rows.forEach((r,i)=>{const tr=body.insertRow();[r.age,r.start.toLocaleString('sv-SE'),...r.cells.map(c=>fmt(c.value)),endAges[i]].forEach((t,i)=>{const c=document.createElement(i?'td':'th');if(!i)c.scope='row';c.textContent=t;tr.append(c);});});box.querySelector('.k9__table').append(table);
+})();

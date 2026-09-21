@@ -1,0 +1,803 @@
+/* --------------------------------------------------------------
+   Rapporten som stegad presentation. Ljus botten enligt profilen:
+   svart text, solida datafärger, ingen genomskinlighet.
+   -------------------------------------------------------------- */
+
+body { background: var(--papper); color: var(--svart); overflow: hidden; height: 100svh; }
+
+/* --- Topprad -------------------------------------------------- */
+
+.topp {
+  position: fixed; z-index: 5; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem;
+  padding: clamp(.9rem, 2.6vh, 1.5rem) clamp(1.2rem, 4vw, 3rem);
+  background: var(--papper);
+  border-bottom: 1px solid var(--linje);
+  font-size: .95rem;
+}
+
+.topp__vanster { display: flex; align-items: center; gap: 1rem; }
+
+.topp__hem {
+  display: inline-flex; align-items: center; gap: .45rem;
+  color: var(--svart); text-decoration: underline; font-weight: 600;
+}
+.topp__hem:hover { text-decoration: underline; }
+.topp__hem svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.topp__kapitel { margin: 0; font-weight: 600; }
+
+.topp__metod {
+  background: none; border: 1px solid var(--gbg-bla); border-radius: 999px;
+  color: var(--svart); font-family: var(--font); font-weight: 600;
+  font-size: .88rem; padding: .4rem 1rem; cursor: pointer;
+}
+.topp__metod:hover { background: var(--gbg-bla); color: var(--vit); }
+.topp__metod:focus-visible { outline: 2px solid var(--svart); outline-offset: 2px; }
+
+/* --- Stegen --------------------------------------------------- */
+
+.scen { position: relative; z-index: 2; height: 100svh; }
+.scen:focus { outline: none; }
+
+.steg {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-content: center; align-items: center;
+  width: min(100% - 3rem, 1240px);
+  margin-inline: auto;
+  padding-block: 6rem 7rem;
+  visibility: hidden;
+}
+.steg.aktiv {
+  visibility: visible;
+}
+.steg.aktiv > * {
+  animation: steg-in .32s cubic-bezier(.2,.7,.3,1) both;
+}
+.steg.aktiv > :last-child { animation-delay: .05s; }
+@keyframes steg-in {
+  from { transform: translateY(14px); }
+  to { transform: translateY(0); }
+}
+.steg[aria-hidden="true"] { pointer-events: none; }
+
+.steg h1, .steg h2 {
+  font-weight: 800;
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  margin: 0 0 1.3rem;
+  text-wrap: balance;
+}
+
+.steg p.steg__etikett {
+  margin: 0 0 .8rem;
+  font-size: .82rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.steg p {
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  max-width: 46ch;
+}
+
+.steg__fraga {
+  display: block;
+  margin-top: .5rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+/* Sekundär text: samma svarta färg, mindre grad, avskild med linje */
+.steg p.not {
+  font-size: .95rem;
+  line-height: 1.55;
+  margin-top: 1.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linje);
+  max-width: 44ch;
+}
+
+.steg__hoger { max-height: 100%; overflow-y: auto; }
+
+/* --- Tre siffror i steg 1 ------------------------------------- */
+
+.tresiffror {
+  list-style: none; margin: 1.6rem 0 0; padding: 0;
+  display: grid; gap: 1rem;
+}
+.tresiffror li {
+  display: grid; grid-template-columns: auto 1fr;
+  align-items: baseline; gap: 1rem;
+  padding-top: .9rem; border-top: 1px solid var(--linje);
+}
+.tresiffror b {
+  font-weight: 800; font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.tresiffror span { font-size: 1rem; line-height: 1.4; }
+
+/* På öppningsbilden fungerar de tre talen som en luftig förhandsblick.
+   Nästa bild förklarar sedan utfallet i detalj. */
+.steg--intro .steg__hoger { overflow: visible; }
+.steg--intro .tresiffror {
+  width: 100%;
+  margin: 0;
+  gap: clamp(.7rem, 2vh, 1.25rem);
+}
+.steg--intro .tresiffror li {
+  grid-template-columns: minmax(10rem, auto) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.8rem);
+  padding: clamp(.45rem, 1.4vh, .8rem) 0 clamp(.45rem, 1.4vh, .8rem) 1.2rem;
+  border-top: 0;
+  border-left: 4px solid var(--gbg-morkbla);
+}
+.steg--intro .tresiffror li:first-child {
+  padding-top: clamp(.45rem, 1.4vh, .8rem);
+}
+.steg--intro .tresiffror li:nth-child(2) { border-left-color: var(--gbg-gron); }
+.steg--intro .tresiffror li:nth-child(3) { border-left-color: var(--gbg-gul); }
+.steg--intro .tresiffror b {
+  font-size: clamp(2.7rem, 5vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+.steg--intro .tresiffror span {
+  max-width: 24ch;
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+}
+
+/* --- Ringen ---------------------------------------------------- */
+/* Varje punkt är 500 göteborgare. Båglängden för varje färg är den
+   faktiska andelen, så figuren är ett diagram och inte dekoration. */
+
+.ring { margin: 0; display: grid; gap: 1.4rem; justify-items: center; }
+
+.ring__duk { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; }
+.ring__duk canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.ring__mitt {
+  position: absolute; inset: 0;
+  display: grid; align-content: center; justify-items: center;
+  text-align: center; gap: .4rem; pointer-events: none;
+}
+.ring__mitt b {
+  font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.1rem);
+  letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.ring__mitt span { font-size: .92rem; line-height: 1.35; }
+
+.ring__nyckel {
+  display: grid; gap: .42rem;
+  width: min(100%, 440px);
+  font-size: .9rem;
+}
+.ring__nyckel-item {
+  display: grid; grid-template-columns: 12px minmax(0, 1fr) auto;
+  align-items: center; gap: .55rem;
+}
+.ring__nyckel-item .prick { margin: 0; }
+.ring__nyckel-item b {
+  font-size: .9rem; font-weight: 600; font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* --- Typografisk sammanställning efter ett år ----------------- */
+
+.utfallslista { margin: 0; width: 100%; max-width: 680px; }
+.utfallslista__rubrik {
+  max-width: 58ch;
+  margin-bottom: clamp(1.4rem, 3vh, 2rem);
+  font-size: 1rem; line-height: 1.45;
+}
+.utfallslista__rubrik strong { font-weight: 800; }
+
+.utfallsgrupp + .utfallsgrupp {
+  margin-top: clamp(1.6rem, 4vh, 2.7rem);
+  padding-top: clamp(1.2rem, 3vh, 1.8rem);
+  border-top: 1px solid var(--svart);
+}
+.utfallsgrupp__huvud {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem; align-items: end;
+  margin-bottom: .85rem;
+}
+.utfallsgrupp__huvud h3 {
+  margin: 0;
+  font-size: clamp(1.14rem, 1.5vw, 1.3rem);
+  line-height: 1.25; font-weight: 800;
+}
+.utfallsgrupp__huvud p {
+  display: flex; align-items: baseline; gap: 1rem;
+  margin: 0; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.utfallsgrupp__huvud p strong { font-size: 1.5rem; font-weight: 800; }
+.utfallsgrupp__huvud p span { font-size: .95rem; }
+
+.utfallslista--nya .utfallsgrupp__huvud:first-child {
+  margin-bottom: .85rem;
+}
+#steg-3 .steg__hoger,
+#steg-4 .steg__hoger {
+  max-height: none;
+  overflow: visible;
+}
+.utfallsgrupp__huvud--summa {
+  margin-top: clamp(1.2rem, 3vh, 1.8rem);
+  margin-bottom: 0;
+  padding-top: clamp(1rem, 2.5vh, 1.4rem);
+  border-top: 1px solid var(--svart);
+}
+.steg p.utfallslista__fotnot {
+  max-width: none;
+  margin: .8rem 0 0;
+  font-size: .82rem;
+  line-height: 1.4;
+}
+
+.utfallsgrupp__andel-markering {
+  position: relative;
+  display: inline-block;
+  margin-right: .6rem;
+}
+.utfallsgrupp__andel-markering::after {
+  content: "";
+  position: absolute;
+  inset: -.38rem -.58rem;
+  border: 1.5px solid var(--gbg-rosa);
+  border-radius: 999px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.steg.aktiv .utfallsgrupp__andel-markering::after {
+  animation: andel-blink .58s ease-out .65s 5;
+}
+@keyframes andel-blink {
+  0%   { visibility: hidden; transform: scale(.78); }
+  10%  { visibility: visible; transform: scale(.78); }
+  55%  { visibility: visible; transform: scale(1); }
+  72%  { visibility: hidden; transform: scale(1); }
+  100% { visibility: hidden; transform: scale(1); }
+}
+
+.utfallsgrupp__rader { margin: 0; }
+.utfallsgrupp__rader > div {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem; align-items: baseline;
+  padding: .54rem 0 .54rem 1rem;
+}
+.utfallsgrupp__rader dt {
+  display: flex; align-items: center;
+  min-width: 0; font-size: 1.07rem; line-height: 1.35;
+}
+.utfallsgrupp__rader dt .prick {
+  flex: 0 0 auto; width: 8px; height: 8px;
+}
+.utfallsgrupp__rader dd {
+  display: flex; align-items: baseline; justify-content: flex-end; gap: .9rem;
+  margin: 0; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.utfallsgrupp__rader dd strong { font-size: 1.15rem; font-weight: 600; }
+.utfallsgrupp__rader dd > span { min-width: 4.6rem; font-size: .9rem; text-align: right; }
+
+/* --- Tabellerna ----------------------------------------------- */
+
+.flode { width: 100%; border-collapse: separate; border-spacing: 0; }
+
+.flode td, .flode th {
+  padding: .7rem .3rem;
+  border-top: 1px solid var(--linje);
+  vertical-align: baseline;
+  font-size: 1.06rem; line-height: 1.35;
+}
+.flode th { text-align: left; font-weight: 400; }
+.flode tr:first-child > * { border-top: none; }
+
+.flode tr.rubrikrad th {
+  border-top: none; padding-top: 1.6rem; padding-bottom: .3rem;
+  font-weight: 600; font-size: .95rem;
+}
+.flode tr.rubrikrad:first-child th { padding-top: 0; }
+
+.flode tr.summarad > * {
+  border-top: 0;
+  background: var(--gbg-ljusbla);
+  font-weight: 800; font-size: 1.25rem; padding-block: .85rem;
+}
+.flode tr.summarad > :first-child { padding-left: .8rem; }
+.flode tr.summarad > :last-child { padding-right: .8rem; }
+.flode tr.grupprubrik th {
+  border-top: 1px solid var(--svart);
+  padding-top: 1.1rem; padding-bottom: .35rem;
+  font-weight: 800; font-size: .95rem;
+}
+.flode tr.gruppdel .namn { border-left: 4px solid var(--gbg-gra); padding-left: 1.1rem; }
+.flode tr.gruppsumma > * {
+  border-top: 0; background: var(--gbg-gra);
+  font-weight: 800; font-size: 1.25rem; padding-block: .8rem;
+}
+.flode tr.gruppsumma > :first-child { padding-left: .8rem; }
+.flode tr.gruppsumma > :last-child { padding-right: .8rem; }
+.flode tr.starttal > * {
+  border-top: 0; border-bottom: 2px solid var(--svart);
+  font-weight: 800; font-size: 1.18rem; padding-bottom: .8rem;
+}
+
+.flode .namn { width: 100%; }
+.flode .varde {
+  min-width: 9.4rem; padding-left: 2rem;
+  text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.flode .antal { display: block; font-weight: 600; font-size: 1.14rem; }
+.flode .andel { display: block; margin-top: .1rem; font-size: .82rem; line-height: 1.2; }
+.flode .summarad .antal, .flode .gruppsumma .antal { font-size: 1.25rem; }
+.flode .summarad .andel, .flode .gruppsumma .andel { font-size: .82rem; font-weight: 600; }
+.flode .indrag .namn { padding-left: 1.6rem; }
+.flode--hel td, .flode--hel th { padding-block: .48rem; font-size: 1rem; }
+.flode--hel .varde { min-width: 8.8rem; }
+.flode--hel .antal { font-size: 1.06rem; }
+.flode--hel tr.summarad > * { font-size: 1.18rem; }
+
+/* --- Året i sin helhet: samma redaktionella form som steg 2–3 --- */
+
+.steg p.steg__slutsats { margin-top: 1.15rem; }
+.slutsatsmarkering {
+  background: var(--gbg-ljusgul);
+  color: var(--svart);
+  padding: .03em .2em;
+  font-weight: 800;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.arsflode { max-width: 700px; }
+.arsflode__total {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: end;
+  padding: 0 .35rem .75rem;
+}
+.arsflode__total h3,
+.arsflode__nya h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  font-weight: 800;
+}
+.arsflode__total p {
+  display: flex;
+  align-items: baseline;
+  gap: .85rem;
+  margin: 0;
+  max-width: none;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.arsflode__total p strong { font-size: 1.24rem; font-weight: 800; }
+.arsflode__total p span { font-size: .82rem; }
+.arsflode__total--start { border-bottom: 2px solid var(--svart); }
+.arsflode__total--slut {
+  margin-top: .65rem;
+  padding-top: .75rem;
+  border-top: 2px solid var(--svart);
+  padding-bottom: 0;
+}
+.steg p.arsflode__fraga {
+  max-width: none;
+  margin: .85rem .35rem .55rem;
+  font-size: .88rem;
+  line-height: 1.35;
+  font-weight: 600;
+}
+.arsflode .utfallsgrupp__huvud {
+  margin-bottom: .2rem;
+  padding: .2rem .35rem;
+}
+.arsflode .utfallsgrupp__huvud h3 { font-size: 1.03rem; }
+.arsflode .utfallsgrupp__huvud p strong { font-size: 1.12rem; }
+.arsflode .utfallsgrupp__huvud p span { font-size: .82rem; }
+.arsflode .utfallsgrupp__rader > div {
+  gap: 1rem;
+  padding: .34rem .35rem .34rem 1.15rem;
+}
+.arsflode .utfallsgrupp__rader dt { font-size: .94rem; }
+.arsflode .utfallsgrupp__rader dd { gap: .7rem; }
+.arsflode .utfallsgrupp__rader dd strong { font-size: 1rem; }
+.arsflode .utfallsgrupp__rader dd > span {
+  min-width: 4.2rem;
+  font-size: .8rem;
+}
+.arsflode__rader { margin-top: .25rem; }
+.arsflode__rader > div { padding-left: .35rem !important; }
+.arsflode__nya {
+  margin-top: .75rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--linje);
+}
+.arsflode__nya h3 { margin: 0 .35rem .35rem; }
+
+/* Markeringen blinkar tre gånger och stannar sedan kvar. */
+.arsflode__kvar { position: relative; }
+.arsflode__kvar::after {
+  content: "";
+  position: absolute;
+  inset: -.2rem 0;
+  border: 1.5px solid var(--gbg-morkbla);
+  border-radius: 2px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.steg.aktiv .arsflode__kvar::after {
+  animation: kvar-markering 2.4s steps(1, end) .75s 1 both;
+}
+@keyframes kvar-markering {
+  0%, 8%   { visibility: hidden; }
+  9%, 22%  { visibility: visible; }
+  23%, 36% { visibility: hidden; }
+  37%, 50% { visibility: visible; }
+  51%, 64% { visibility: hidden; }
+  65%, 100% { visibility: visible; }
+}
+
+.prick { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: .6rem; }
+
+/* --- Tidslinje i steg 4 --------------------------------------- */
+
+.tidslinje { margin: 0 0 2rem; }
+.tidslinje__spar {
+  display: flex; align-items: flex-end; gap: .35rem;
+  border-bottom: 2px solid var(--linje);
+  padding-bottom: .6rem;
+}
+.tidslinje__ar {
+  flex: 1; text-align: center;
+  font-size: .82rem; font-weight: 600;
+  padding-bottom: .3rem;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -.75rem;
+}
+.tidslinje__ar[data-vald="ja"] { border-bottom-color: var(--gbg-bla); font-size: .95rem; }
+.tidslinje__ar[data-vald="nej"] { font-weight: 400; }
+.tidslinje__text { margin: .9rem 0 0; font-size: .95rem; max-width: 52ch; }
+
+/* --- Jämförelsetabell mot officiell statistik ----------------- */
+
+#steg-5 .steg__hoger {
+  max-height: none;
+  overflow: visible;
+}
+#steg-5 h2 { font-size: clamp(2rem, 3.6vw, 3rem); }
+#steg-5 .steg__vanster p {
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  line-height: 1.55;
+}
+.jamfor {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  table-layout: fixed;
+}
+.jamfor th {
+  text-align: right;
+  vertical-align: bottom;
+  font-weight: 600;
+  font-size: .78rem;
+  line-height: 1.3;
+  padding: 0 .65rem .7rem;
+}
+.jamfor th:first-child { text-align: left; }
+.jamfor thead th:first-child { width: 31%; }
+.jamfor thead th:nth-child(2) { width: 22%; }
+.jamfor thead th:nth-child(3) { width: 25%; }
+.jamfor thead th:nth-child(4) { width: 22%; }
+.jamfor td {
+  padding: .72rem .65rem;
+  border-bottom: 1px solid var(--linje);
+  background: var(--papper);
+  font-size: .98rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.jamfor tbody th {
+  padding: .72rem .65rem;
+  border-bottom: 1px solid var(--linje);
+  background: var(--papper);
+  font-size: .94rem;
+  line-height: 1.3;
+  text-align: left;
+  font-weight: 600;
+}
+.jamfor tbody tr:first-child > * { border-top: 1px solid var(--svart); }
+.jamfor tbody tr:last-child > * { border-bottom-color: var(--svart); }
+.jamfor tbody td:nth-child(2),
+.jamfor tbody td:nth-child(3) { font-weight: 600; }
+.jamfor .jamfor__skillnad b {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.jamfor .jamfor__skillnad span {
+  display: block;
+  margin-top: .08rem;
+  font-size: .78rem;
+  line-height: 1.2;
+}
+.tabellbehallare { overflow: visible; }
+
+/* --- Metodpanel ----------------------------------------------- */
+
+.metod {
+  position: fixed; z-index: 10; inset: 0;
+  width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; border: 0;
+  background: var(--papper);
+  color: var(--svart);
+  overflow-y: auto;
+  padding: clamp(4.5rem, 10vh, 7rem) 0 5rem;
+}
+.metod::backdrop { background: var(--papper); }
+.metod__inner { width: min(100% - 3rem, 720px); margin-inline: auto; }
+.metod h2 { font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 1.5rem; letter-spacing: -.02em; }
+.metod h3 { font-weight: 800; font-size: 1.15rem; margin: 2rem 0 .5rem; }
+.metod p { font-size: 1.02rem; line-height: 1.65; margin: 0 0 1rem; max-width: 62ch; }
+.metod__stang {
+  position: fixed; top: clamp(.9rem, 2.6vh, 1.5rem); right: clamp(1.2rem, 4vw, 3rem);
+  width: 44px; height: 44px; border-radius: 999px;
+  border: 1px solid var(--linje); background: var(--papper);
+  display: grid; place-items: center; cursor: pointer;
+}
+.metod__stang svg { width: 20px; height: 20px; fill: none; stroke: var(--svart); stroke-width: 2; stroke-linecap: round; }
+
+/* --- Navigering ----------------------------------------------- */
+
+.navigering {
+  position: fixed; z-index: 6;
+  left: 50%; bottom: clamp(1rem, 3.2vh, 2rem);
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: .4rem;
+  padding: .4rem;
+  background: var(--papper);
+  border: 1px solid var(--linje);
+  border-radius: 999px;
+}
+
+.nav__knapp {
+  width: 46px; height: 46px; display: grid; place-items: center;
+  border: none; border-radius: 999px; background: transparent;
+  color: var(--gbg-bla); cursor: pointer;
+}
+.nav__knapp:hover:not(:disabled) { background: var(--gbg-ljusbla); }
+.nav__knapp:disabled { color: var(--gbg-gra); cursor: default; }
+.nav__knapp:focus-visible { outline: 2px solid var(--svart); outline-offset: 2px; }
+.nav__knapp svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.nav__punkter { display: flex; gap: .45rem; list-style: none; margin: 0; padding: 0 .5rem; }
+.nav__punkter button {
+  width: 36px; height: 44px; padding: 0; border: none;
+  background: transparent; cursor: pointer;
+  display: grid; place-items: center;
+}
+.nav__punkter button::before {
+  content: ""; display: block; width: 10px; height: 10px;
+  border-radius: 999px; background: var(--gbg-gra);
+  transition: width .2s ease, background .15s ease;
+}
+.nav__punkter button[aria-current="true"]::before { background: var(--gbg-bla); width: 26px; }
+.nav__punkter button:focus-visible { outline: 2px solid var(--svart); outline-offset: 3px; }
+
+.tangenttips {
+  position: fixed; z-index: 6;
+  right: clamp(1.2rem, 4vw, 3rem); bottom: clamp(1.5rem, 3.6vh, 2.4rem);
+  margin: 0; font-size: .85rem; color: var(--kalla);
+}
+
+.kalla { font-size: .85rem; color: var(--kalla); }
+
+/* --- Mobil ----------------------------------------------------- */
+
+@media (max-width: 820px) {
+  .steg {
+    grid-template-columns: 1fr; align-content: start; gap: 1.6rem;
+    width: calc(100% - 2.2rem); padding-block: 5.4rem 6.5rem;
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+  }
+  .steg__hoger { overflow: visible; max-height: none; }
+  .steg h1, .steg h2 { font-size: clamp(1.8rem, 7vw, 2.3rem); }
+  .steg p { font-size: 1.06rem; max-width: none; }
+  .steg p.not { max-width: none; }
+  .tresiffror b { font-size: 1.6rem; }
+  .ring__duk { max-width: 320px; }
+  .ring__mitt b { font-size: 2rem; }
+  .flode td, .flode th { font-size: 1.02rem; padding: .58rem .2rem; }
+  .flode .varde { min-width: 8.2rem; padding-left: .8rem; }
+  .jamfor { display: block; }
+  .jamfor thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .jamfor tbody { display: grid; gap: 1rem; }
+  .jamfor tbody tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-bottom: .75rem;
+    border-bottom: 1px solid var(--linje);
+    background: var(--papper);
+  }
+  .jamfor tbody tr:first-child > * { border-top: 0; }
+  .jamfor tbody th {
+    grid-column: 1 / -1;
+    padding: 0 0 .45rem;
+    border-bottom: 0;
+    font-size: 1rem;
+  }
+  .jamfor tbody td {
+    padding: .2rem .5rem 0 0;
+    border-bottom: 0;
+    text-align: left;
+  }
+  .jamfor tbody td::before {
+    content: attr(data-rubrik);
+    display: block;
+    min-height: 4.8em;
+    margin-bottom: .3rem;
+    font-size: .68rem;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+  .tangenttips { display: none; }
+  .topp__kapitel { display: none; }
+  .topp { font-size: .9rem; }
+  .tidslinje__ar { font-size: .7rem; }
+}
+
+@media (max-width: 560px) {
+  .utfallsgrupp__huvud { grid-template-columns: 1fr; gap: .25rem; }
+  .utfallsgrupp__huvud p { justify-content: flex-start; }
+  .utfallsgrupp__rader > div { grid-template-columns: 1fr; gap: .15rem; padding-left: .7rem; }
+  .utfallsgrupp__rader dd { justify-content: flex-start; padding-left: 1.15rem; }
+  .arsflode__total { grid-template-columns: 1fr; gap: .25rem; }
+  .arsflode__total p { justify-content: flex-start; }
+}
+
+@media (max-width: 420px) {
+  .navigering { gap: .15rem; padding: .25rem; }
+  .nav__knapp { width: 40px; height: 44px; }
+  .nav__punkter { gap: .1rem; padding-inline: .2rem; }
+  .nav__punkter button { width: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .steg.aktiv > * { animation: none; }
+  .steg.aktiv .arsflode__kvar::after {
+    animation: none;
+    visibility: visible;
+  }
+  .steg.aktiv .utfallsgrupp__andel-markering::after {
+    animation: none;
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* Stegen får växa på låga skärmar och vid zoom. Sidan sköter rullningen. */
+body { overflow: auto; height: auto; }
+.scen { height: auto; min-height: 100svh; }
+.steg { position: relative; inset: auto; display: none; min-height: 100svh; }
+.steg.aktiv { display: grid; }
+.steg .steg__hoger { max-height: none; overflow: visible; }
+.kapitellank { display: inline-block; color: var(--svart); font-weight: 600; text-underline-offset: .25em; margin-top: .7rem; }
+.kapitellank:focus-visible { outline: 3px solid var(--svart); outline-offset: 4px; }
+.kapitellank--nasta { position: relative; padding: .85rem 1.1rem; border: 2px solid var(--gbg-bla); border-radius: 6px; background: var(--gbg-bla); color: var(--vit); text-decoration: none; line-height: 1.5; }
+.kapitellank--nasta:hover { background: var(--gbg-morkbla); border-color: var(--gbg-morkbla); }
+.kapitellank--nasta::after { content: ""; position: absolute; inset: -6px; border: 2px solid var(--gbg-bla); border-radius: 10px; pointer-events: none; visibility: hidden; }
+.steg.aktiv .kapitellank--nasta::after { animation: nasta-markering .9s steps(1, end) .8s 3; }
+@keyframes nasta-markering { 0%, 69% { visibility: visible; } 70%, 100% { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce), print { .steg.aktiv .kapitellank--nasta::after { animation: none; } }
+.fordjupning { margin-top: 1.5rem; border-top: 1px solid var(--linje); padding-top: .8rem; }
+.fordjupning summary { cursor: pointer; font-weight: 600; font-size: .9rem; margin-bottom: 1rem; }
+.fordjupning summary:focus-visible { outline: 2px solid var(--svart); outline-offset: 3px; }
+
+.steg.aktiv .utfallsgrupp__andel-markering::after,
+.steg.aktiv .arsflode__kvar::after { animation: none; visibility: visible; }
+.topp__vanster { min-width: 0; }
+.topp__metod { flex-shrink: 0; }
+@media (max-width: 820px) { .steg { overflow: visible; } }
+@media print {
+  body { overflow: visible; height: auto; }
+  .topp, .navigering, .tangenttips, .hoppa, .metod { display: none; }
+  .scen { height: auto; }
+  .steg, .steg.aktiv {
+    display: grid; position: static; visibility: visible;
+    width: 100%; min-height: auto; padding: 2rem 0;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+}
+
+/* Årsöversikten använder samma tabellspråk som kapitlets utfallslistor. */
+.arsoversikt > figcaption {
+  font-size: clamp(1.35rem, 2vw, 1.7rem); line-height: 1.3;
+  font-weight: 800; margin-bottom: 1.7rem;
+}
+.arsoversikt .arsflode__total h3 { font-size: 1.08rem; }
+.arsoversikt .arsflode__total p strong { font-size: 1.5rem; }
+.arsoversikt .utfallsgrupp__rader > div { padding: .85rem .35rem; }
+.arsoversikt .utfallsgrupp__rader dt { font-size: 1rem; }
+.arsoversikt .utfallsgrupp__rader dd strong { font-size: 1.18rem; }
+.arsoversikt__utfall { padding-block: .45rem; }
+.arsoversikt__utfall > div:last-child { padding-left: 1.45rem !important; }
+.arsoversikt__nya { border-top: 1px solid var(--linje); margin-top: .3rem; padding-top: .25rem; }
+.arsoversikt__okning { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin: 1rem .35rem 0; font-size: 1rem; }
+.arsoversikt__okning > strong { font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.steg.aktiv .utfallsgrupp__andel-markering::after {
+  visibility: hidden;
+  animation: andel-fem-blink .65s steps(1, end) .6s 5 forwards;
+}
+@keyframes andel-fem-blink {
+  0%, 24% { visibility: hidden; }
+  25%, 100% { visibility: visible; }
+}
+.flyttexempel { margin: 0; }
+.flyttexempel figcaption { font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
+.flyttexempel__bild { display: block; width: 100%; height: auto; overflow: visible; }
+.flyttexempel__bild text { fill: var(--svart); font-family: var(--font); font-size: 15px; }
+.flyttexempel__bild .flytt-ar { font-size: 18px; font-weight: 600; }
+.steg .flyttexempel p { margin-top: 1rem; font-size: .95rem; }
+@media (max-width: 560px) {
+  .arsoversikt .utfallsgrupp__rader dd { padding-left: 0; }
+  .arsoversikt__okning { flex-wrap: wrap; }
+  .flyttexempel__bild text { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce), print {
+  .steg.aktiv .utfallsgrupp__andel-markering::after { animation: none; visibility: visible; }
+  .steg.aktiv .arsoversikt > :is(.arsflode__total, dl, .arsoversikt__nya, .arsoversikt__okning) {
+    animation: none; clip-path: none; transform: none; stroke-dashoffset: 0; visibility: visible;
+  }
+}
+
+/* Flyttpilarnas position och linjelängd synkroniseras i flyttexempel.js. */
+.flyttexempel__bild .flyttvag { stroke-linecap: round; }
+.flyttexempel__bild .flyttetikett { font-weight: 600; }
+@media print { .flyttvag { stroke-dashoffset: 0 !important; visibility: visible !important; } .flyttpil { visibility: visible !important; } }
+
+/* Fem röda ringmarkeringar, sedan bestående ljusgul markering. */
+.talmarkering { position: relative; display: inline-block; padding: .03em .2em; color: var(--svart); font-weight: 800; }
+.talmarkering::after { content: ""; position: absolute; inset: -.35rem -.45rem; border: 1.5px solid var(--gbg-rod); border-radius: 999px; visibility: hidden; pointer-events: none; }
+.steg.aktiv .talmarkering::after { animation: tal-ring .65s steps(1, end) .6s 5; }
+.steg.aktiv .talmarkering { animation: tal-gul .01s step-end 3.85s both; }
+@keyframes tal-ring { 0%, 24% { visibility: hidden; } 25%, 80% { visibility: visible; } 81%, 100% { visibility: hidden; } }
+@keyframes tal-gul { from { background-color: transparent; } to { background-color: var(--gbg-ljusgul); } }
+/* På andra och tredje delsidan: tre mjuka pulser med bestående gul bakgrund. */
+:is(#steg-2, #steg-3).aktiv .talmarkering::after { visibility: visible; opacity: 0; animation: tal-lugn-puls 1.2s ease-in-out .6s 3; }
+:is(#steg-2, #steg-3) .talmarkering { background-color: var(--gbg-ljusgul, #fff3b0); }
+:is(#steg-2, #steg-3).aktiv .talmarkering { animation: none; }
+@keyframes tal-lugn-puls { 0%, 100% { opacity: 0; } 40%, 60% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce), print {
+  :is(#steg-2, #steg-3).aktiv .talmarkering { animation: none; background-color: var(--gbg-ljusgul); }
+  :is(#steg-2, #steg-3).aktiv .talmarkering::after { animation: none; visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce), print {
+  .steg.aktiv .talmarkering, .talmarkering { animation: none; background-color: var(--gbg-ljusgul); }
+  .steg.aktiv .talmarkering::after { animation: none; visibility: hidden; }
+}
+
+/* Den tredje andelen gäller en annan population än de två första. */
+.steg--intro .tresiffror .tresiffror__flyttare { margin-top: 1rem; row-gap: .65rem; }
+.steg--intro .tresiffror__grupp { grid-column: 1 / -1; font-size: .85rem; font-weight: 600; line-height: 1.4; }
+
+/* Årets förändring: två lika tydliga antal, med befolkningen som inramning. */
+.arsoversikt__kontrast { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; margin: 1.6rem 0; }
+.arsoversikt__kontrast > div { padding: 1rem 0; border-top: 3px solid var(--gbg-morkbla); }
+.arsoversikt__kontrast dt { font-size: 1rem; font-weight: 600; }
+.arsoversikt__kontrast dd { margin: .6rem 0 0; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.arsoversikt__kontrast dd.arsoversikt__forklaring { font-size: .85rem; line-height: 1.5; font-weight: 400; max-width: 28ch; }
+@media (max-width: 540px) {
+  .arsoversikt__kontrast { gap: 1rem; }
+  .arsoversikt__kontrast dt { font-size: .9rem; }
+}

@@ -1,0 +1,49 @@
+
+/* Kapitel 5: bostadstyp, storlek och ålder i rapportens gemensamma form. */
+.k5 {border-top:3px solid var(--gbg-morkbla);padding-top:1rem;min-width:0;}
+.k5 [hidden]{display:none!important;}
+.k5 h3{font-size:1rem;font-weight:600;line-height:1.5;margin:0 0 .8rem;}
+.k5__datum{font-size:.85rem;font-weight:400;}
+.k5 button,.k5 select{font:inherit;font-size:.78rem;color:var(--svart);background:#fff;border:1px solid var(--gbg-morkbla);border-radius:3px;min-height:33px;padding:.35rem .55rem;cursor:pointer;}
+.k5 button:hover{background:#f4f6f7;}
+.k5 button[aria-pressed="true"]{background:var(--gbg-ljusbla);box-shadow:inset 0 0 0 1px var(--gbg-morkbla);font-weight:700;}
+.k5 button:focus-visible,.k5 select:focus-visible,.k5 summary:focus-visible{outline:2px solid var(--svart);outline-offset:3px;}
+.k5__val,.k5__verktyg{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:0 0 .75rem;}
+.k5__verktyg{justify-content:space-between;font-size:.76rem;}
+.k5__val button{display:inline-flex;align-items:center;gap:.4rem;}
+.k5__prov{width:20px;height:3px;display:inline-block;}
+.k5__figur{width:100%;min-width:0;}
+.k5__figur svg{display:block;width:100%;height:auto;}
+.k5__figur text{fill:#1f1f1f;font-family:var(--font);font-size:12px;font-variant-numeric:tabular-nums;}
+.steg .k5 p{max-width:none;font-size:.76rem;line-height:1.5;margin:.5rem 0;}
+.k5__export{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0;font-size:.76rem;}
+.k5__export a{color:var(--svart);}
+.k5__data{border-top:1px solid var(--linje);padding-top:.65rem;margin-top:.7rem;font-size:.8rem;}
+.k5__data summary{cursor:pointer;}
+.k5__tabell{overflow-x:auto;margin-top:.6rem;}
+.k5 table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.76rem;white-space:nowrap;}
+.k5 th,.k5 td{padding:.4rem .6rem;text-align:right;border-bottom:1px solid var(--linje);}
+.k5 th:first-child,.k5 td:first-child{text-align:left;}
+.k5 th{font-weight:600;}
+.k5 caption{text-align:left;white-space:normal;line-height:1.5;margin-bottom:.5rem;}
+.k5 textarea{width:100%;min-height:9rem;font:inherit;}
+
+.k5__metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.6rem;margin:.75rem 0 1rem;}
+.k5__metrics div{display:grid;gap:.2rem;}
+.k5__metrics b{font-size:clamp(1.45rem,2.6vw,2.1rem);font-weight:800;white-space:nowrap;}
+.k5__metrics span{font-size:.76rem;}
+.k5__arval{display:grid;grid-template-columns:1fr auto;gap:.65rem;margin:1rem 0;font-size:.85rem;}
+.k5__arval small{display:block;font-size:.75rem;margin-top:.25rem;}
+.k5__arval input{grid-column:1/-1;width:100%;accent-color:var(--gbg-morkbla);min-height:28px;}
+.k5__snabbval{display:flex;gap:.35rem;}
+.k5__sort{margin-left:auto;font-size:.75rem;display:flex;gap:.4rem;align-items:center;}
+.k5__datum{font-size:.85rem;font-weight:400;}
+.k5__figur{overflow-x:auto;}
+.k5__figur svg{min-width:500px;}
+.k5__val svg{flex:none;}
+@media(max-width:540px){.k5__metrics{grid-template-columns:repeat(2,minmax(0,1fr));}.topp__kapitel{font-size:.8rem;}}
+@media print{.k5__val,.k5__arval,.k5__export,.k5__data,.k5__verktyg button,.k5__sort{display:none;}.k5__figur{break-inside:avoid;overflow:visible;}}
+.steg p.k5__budskap {background:var(--gbg-ljusgul);border-top:0;padding:1rem 1.1rem;}
+.k5__figur text.k5__spann {font-size:28px;font-weight:800;}
+
+#steg-1 .k5__budskap {background:transparent;font-weight:700;padding:0;}

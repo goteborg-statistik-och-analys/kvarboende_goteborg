@@ -1,0 +1,116 @@
+
+/* Kapitel 4: samma rapportform, med geografisk fördjupning. */
+.k4 {border-top:3px solid var(--gbg-morkbla);padding-top:1rem;min-width:0;}
+.k4 [hidden]{display:none!important;}
+.k4 h3{font-size:1rem;font-weight:600;line-height:1.5;margin:0 0 .8rem;}
+.k4__datum{font-size:.85rem;font-weight:400;}
+.k4 button,.k4 select{font:inherit;font-size:.78rem;color:var(--svart);background:#fff;border:1px solid var(--gbg-morkbla);border-radius:3px;min-height:33px;padding:.35rem .55rem;cursor:pointer;}
+.k4 button:hover{background:#f4f6f7;}
+.k4 button[aria-pressed="true"]{background:var(--gbg-ljusbla);box-shadow:inset 0 0 0 1px var(--gbg-morkbla);font-weight:700;}
+.k4 button:focus-visible,.k4 select:focus-visible,.k4 summary:focus-visible{outline:2px solid var(--svart);outline-offset:3px;}
+.k4__val,.k4__verktyg{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:0 0 .75rem;}
+.k4__verktyg{justify-content:space-between;font-size:.76rem;}
+.k4__val button{display:inline-flex;align-items:center;gap:.4rem;}
+.k4__prov{width:20px;height:3px;display:inline-block;}
+.k4__figur{width:100%;min-width:0;}
+.k4__figur svg{display:block;width:100%;height:auto;}
+.k4__figur text{fill:#1f1f1f;font-family:var(--font);font-size:12px;font-variant-numeric:tabular-nums;}
+.steg .k4 p{max-width:none;font-size:.76rem;line-height:1.5;margin:.5rem 0;}
+.k4__export{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:.8rem 0;font-size:.76rem;}
+.k4__export a{color:var(--svart);}
+.k4__data{border-top:1px solid var(--linje);padding-top:.65rem;margin-top:.7rem;font-size:.8rem;}
+.k4__data summary{cursor:pointer;}
+.k4__tabell{overflow-x:auto;margin-top:.6rem;}
+.k4 table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.76rem;white-space:nowrap;}
+.k4 th,.k4 td{padding:.4rem .6rem;text-align:right;border-bottom:1px solid var(--linje);}
+.k4 th:first-child,.k4 td:first-child{text-align:left;}
+.k4 th{font-weight:600;}
+.k4 caption{text-align:left;white-space:normal;line-height:1.5;margin-bottom:.5rem;}
+.k4 textarea{width:100%;min-height:9rem;font:inherit;}
+.k4__omradesval{display:flex;align-items:center;gap:.5rem;font-size:.78rem;margin-bottom:.75rem;}
+.k4__omradesval select{min-width:0;max-width:100%;}
+.steg .k4__kedja{padding:.6rem 0;border-top:1px solid var(--linje);margin-bottom:.75rem;}
+.k4__kartbild{position:relative;background:#fff;border:1px solid var(--linje);}
+.k4__kartbild svg{overflow:hidden;touch-action:none;cursor:grab;}
+.k4__kartbild svg:active{cursor:grabbing;}
+.k4__kartverktyg{position:absolute;top:.6rem;left:.6rem;display:flex;gap:.3rem;}
+.k4__kartverktyg button{background:#fff;font-size:.78rem;min-width:33px;}
+.k4__kartinfo{display:flex;justify-content:space-between;align-items:baseline;gap:.7rem;margin:.7rem 0;}
+.k4__kartinfo strong{font-size:1.15rem;}
+.k4__kartinfo span{font-size:.78rem;text-align:right;}
+.k4__kartnyckel{display:flex;flex-wrap:wrap;gap:.5rem 1rem;}
+.k4__kartnyckel span{display:inline-flex;align-items:center;gap:.4rem;}
+.k4__kartnyckel i{width:14px;height:11px;background:#b8e1c8;border:1px solid #3f5564;}
+.k4__kartnyckel i.k4__vald{background:#ffcd37;}
+@media(max-width:580px){.topp__kapitel{font-size:.8rem;}.topp__vanster{gap:.6rem;}.k4__omradesval{align-items:flex-start;flex-direction:column;}.k4__kartinfo{align-items:flex-start;}.k4__kartinfo strong{font-size:1rem;}}
+@media print{.k4__val,.k4__verktyg button,.k4__export,.k4__data,.k4__kartverktyg,.k4__omradesval{display:none;}.k4__figur{break-inside:avoid;}}
+#k4-trappa .k4__figur, #k4-alderstrappa .k4__figur {overflow-x:auto;} #k4-trappa .k4__figur svg, #k4-alderstrappa .k4__figur svg {min-width:520px;}
+#k4-trappa .k4__figur text[data-bar-value] {fill:#ffffff;}
+.k4__statistik {border-top:1px solid var(--linje);margin-top:.8rem;padding-top:.8rem;}
+.k4__statnyckel {display:flex;flex-wrap:wrap;gap:.5rem 1rem;font-size:.85rem;font-weight:600;margin-bottom:1rem;}
+.k4__statnyckel span {display:inline-flex;align-items:center;gap:.4rem;}
+.k4__statnyckel i {width:13px;height:13px;flex:none;}
+.k4__kvarvarden {display:flex;flex-wrap:wrap;gap:1rem 2rem;}
+.k4__kvarvarden div {display:grid;gap:.2rem;}
+.k4__kvarvarden b {font-size:1.7rem;font-weight:800;}
+.k4__kvarvarden span {font-size:.8rem;}
+.k4__befolkning {overflow-x:auto;}
+.k4__befolkning svg {min-width:500px;}
+.k4__befolkning text[data-bar-value] {fill:#fff;}
+
+/* Kartintroduktionen: karta och kompakt profil för vald nivå. */
+#steg-3 {width:min(100% - 3rem,1480px);grid-template-columns:minmax(280px,4fr) minmax(0,8fr);gap:3rem;}
+.k4__atlas {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,1fr);gap:1.5rem;align-items:start;}
+.k4__kartbild {border:0;background:#fff;min-width:0;}
+.k4__kartbild svg {min-height:280px;}
+.k4__kartbild text {font-size:12px;}
+.k4__kartbild text[data-area-label] {font-size:14px;}
+.k4__kartbild text[data-context-label] {font-size:10px;}
+.k4__profil {border-left:1px solid var(--linje);padding-left:1.25rem;min-width:0;}
+.k4__profil h3 {margin-bottom:.7rem;}
+.k4__profilnycklar {display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.steg .k4__profilnycklar p {margin:0 0 1rem;}
+.k4__profilnycklar strong {display:block;font-size:1.65rem;line-height:1.2;font-weight:800;}
+.k4__profilnycklar span {display:block;margin-top:.35rem;font-size:.72rem;}
+.k4__profiltabs {display:flex;gap:.4rem;flex-wrap:wrap;margin:.2rem 0 .6rem;}
+.k4__miniprofil svg {display:block;width:100%;height:auto;}
+.k4__miniprofil text {font-family:var(--font);fill:#1f1f1f;}
+.steg .k4__profilnot {font-size:.72rem;}
+.steg .k4__kedja {font-size:.8rem;line-height:1.6;}
+@media(max-width:1250px) {
+ #steg-3 {grid-template-columns:minmax(250px,4fr) minmax(0,7fr);gap:2rem;}
+ .k4__atlas {grid-template-columns:1fr;}
+ .k4__profil {border-left:0;border-top:1px solid var(--linje);padding:1rem 0 0;}
+ .k4__miniprofil {max-width:460px;}
+}
+@media(max-width:820px) {#steg-3 {grid-template-columns:1fr;gap:1.5rem;}}
+@media print {.k4__profiltabs {display:none;}}
+
+
+#k4-trappa .k4__population { background: none; color: #1f1f1f; font-weight: 700; }
+
+/* Mer utrymme åt geografin, kompakt faktadel. */
+.k4__atlas {grid-template-columns:minmax(0,1.2fr) minmax(290px,1fr);gap:1.1rem;}
+.k4__kartbild svg {min-height:360px;}
+.k4__kedja strong {font-weight:800;background:#fff3b0;padding:.1em .2em;}
+.k4__bostadstabell {width:100%;border-collapse:collapse;font-size:.74rem;}
+.k4__bostadstabell caption {text-align:left;font-size:.72rem;margin:.3rem 0 .7rem;}
+.k4__bostadstabell th,.k4__bostadstabell td {padding:.55rem .15rem;border-bottom:1px solid #d1d9dc;text-align:right;}
+.k4__bostadstabell th:first-child {text-align:left;font-weight:400;}
+.k4__bostadstabell thead th {font-weight:600;}
+@media(max-width:1100px){.k4__atlas{grid-template-columns:1fr;}.k4__kartbild svg{max-height:450px;}.k4__profil{border-left:0;padding-left:0;}}
+
+.k4__nyprofil svg{width:100%;height:auto;display:block;}
+.k4__profilscroll{overflow-x:auto;}
+.k4__bostadsval{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;font-size:.78rem;margin:.7rem 0;}
+.k4__bostadsval select{width:auto;max-width:100%;padding:.3rem;font:inherit;}
+.k4__nyprofil .k4__bostadstabell{font-size:.7rem;}
+
+.k4__kartbild text[data-primary-context]{font-size:8px;font-weight:400;}
+.k4__aldersrubrik{font-size:.76rem;margin:0 0 .6rem;font-weight:600;}
+.k4__aldersnycklar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;border-top:1px solid #d1d9dc;padding-top:.7rem;}
+.k4__aldersnycklar span,.k4__aldersnycklar small{display:block;font-size:.72rem;}
+.k4__aldersnycklar strong{display:block;font-size:1.35rem;line-height:1.5;}
+.k4__bostadsjamforelse{margin:1rem 0;font-size:.76rem;}
+.k4__bostadsjamforelse summary{cursor:pointer;font-weight:600;}
+.k4__bostadsjamforelse .k4__vald-bostadsform{background:#c0e4f2;}

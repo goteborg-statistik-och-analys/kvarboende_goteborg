@@ -1,0 +1,38 @@
+/* Endast första delsidan. Den tidigare sidans typografi och färger behålls. */
+#steg-1 .intro-nyckeltal{gap:clamp(2rem,6vh,4rem)}
+#steg-1.intro-visad .intro-nyckeltal b{transform-origin:left center;animation:intro-tal-fram 1s cubic-bezier(.2,.7,.3,1) .45s both}
+#steg-1.intro-visad .intro-nyckeltal li:nth-child(2) b{animation-delay:.9s}
+@keyframes intro-tal-fram{from{transform:translateY(24px) scale(.94)}to{transform:translateY(0) scale(1)}}
+.intro-metod[hidden],.intro-metod-aldre[hidden]{display:none}
+#steg-2 .sida2-forklaring{display:block;margin:.3rem 0 0 1.1rem;font-size:.78rem;line-height:1.5;font-weight:400;max-width:38ch}
+@media(prefers-reduced-motion:reduce){#steg-1.intro-visad .intro-nyckeltal b{animation:none}}
+#steg-4 .arsoversikt__kontrast { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+#steg-4 .arsoversikt__kontrast dd:not(.arsoversikt__forklaring) { font-size: clamp(1.65rem, 2.8vw, 2.5rem); white-space: nowrap; }
+@media (max-width: 600px) {
+  #steg-4 .arsoversikt__kontrast { grid-template-columns: 1fr; }
+  #steg-4 .arsoversikt__forklaring { max-width: none; }
+}
+#steg-5 .flyttexempel__bild { max-width: 390px; margin: 0 auto; }
+#steg-5 .flyttexempel figcaption { font-size: 1.2rem; margin-bottom: .4rem; }
+#steg-5 .flyttexempel p { font-size: .8rem; margin: .15rem 0 1rem; }
+#steg-5 .sida5-handelser { border-top: 2px solid #3f5564; padding-top: .7rem; }
+#steg-5 .sida5-handelser h3 { font-size: 1.05rem; margin: 0 0 .6rem; }
+#steg-5 .sida5-handelser dl { margin: 0; }
+#steg-5 .sida5-handelser dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; font-size: .88rem; }
+#steg-5 .sida5-handelser dl > div:nth-child(3), #steg-5 .sida5-handelser dl > div:nth-child(4), #steg-5 .sida5-handelser dl > div:nth-child(7) { border-top: 1px solid #d1d9dc; margin-top: .2rem; padding-top: .4rem; }
+#steg-5 .sida5-handelser dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#steg-5 .sida5-handelser .utfallslista__fotnot { font-size: .72rem; margin-top: .65rem; }
+#steg-5 .sida5-bokforing { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 1.4rem; }
+#steg-5 .sida5-netton { border-left: 1px solid #d1d9dc; padding-left: 1rem; }
+#steg-5 .sida5-netton h4 { margin: 0; font-size: .85rem; }
+#steg-5 .sida5-netton p { margin: .3rem 0 .65rem; font-size: .7rem; line-height: 1.5; }
+#steg-5 .sida5-netto, #steg-5 .sida5-nettosumma { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; font-size: .78rem; padding: .5rem 0; }
+#steg-5 .sida5-netto strong { font-size: 1rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+#steg-5 .sida5-nettosumma { border-top: 2px solid #3f5564; margin-top: .35rem; }
+#steg-5 .sida5-nettosumma strong { font-size: 1.4rem; white-space: nowrap; }
+#steg-5 .sida5-internflytt { font-size: .78rem; margin: .75rem 0 .4rem; }
+#steg-5 .sida5-bokforing dl > div { font-size: .8rem; }
+@media (max-width: 650px) {
+  #steg-5 .sida5-bokforing { grid-template-columns: 1fr; }
+  #steg-5 .sida5-netton { border-left: 0; padding-left: 0; }
+}

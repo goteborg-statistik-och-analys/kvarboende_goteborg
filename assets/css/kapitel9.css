@@ -1,0 +1,52 @@
+
+.k9 {border-top:3px solid var(--gbg-morkbla);padding-top:1rem;min-width:0;}
+.k9 h3 {font-size:1rem;line-height:1.4;margin:0 0 .7rem;}
+.k9__reading,.k9__note,.k9__source {font-size:.78rem!important;line-height:1.5!important;max-width:none!important;margin:.5rem 0!important;}
+.k9__controls {display:flex;justify-content:flex-end;margin:.3rem 0;}
+.k9 button {font:600 .78rem var(--font);color:var(--svart);background:var(--papper);border:1px solid var(--gbg-morkbla);border-radius:4px;padding:.5rem .7rem;min-height:36px;cursor:pointer;}
+.k9 button:hover {background:var(--gbg-ljusbla);}
+.k9 :is(button,input,summary):focus-visible {outline:2px solid var(--svart);outline-offset:3px;}
+.k9__plot svg {display:block;width:100%;height:auto;font-family:var(--font);}
+.k9__values {display:flex;flex-wrap:wrap;gap:.7rem 1.5rem;margin:.7rem 0;}
+.k9__values > div {display:grid;gap:.15rem;min-width:100px;}
+.k9__values span {font-size:.8rem;}
+.k9__values b {font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;}
+.k9__count {flex-basis:100%;font-size:.8rem!important;margin:0!important;}
+.k9__year {display:grid;grid-template-columns:1fr auto;gap:.35rem;font-size:.8rem;align-items:center;margin:1rem 0;}
+.k9__year input {grid-column:1/-1;width:100%;accent-color:var(--gbg-morkbla);min-height:30px;}
+.k9__year output {font-weight:600;}
+.k9__exports {display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin:.6rem 0;font-size:.78rem;}
+.k9 details {border-top:1px solid var(--linje);margin-top:.7rem;padding-top:.7rem;font-size:.8rem;}
+.k9 summary {cursor:pointer;}
+.k9__table {overflow-x:auto;}
+.k9 table {border-collapse:collapse;width:100%;font-size:.78rem;}
+.k9 th,.k9 td {text-align:right;padding:.45rem;border-bottom:1px solid var(--linje);white-space:nowrap;}
+.k9 th:first-child,.k9 td:first-child {text-align:left;}
+.k9 textarea {width:100%;min-height:6rem;}
+@media(max-width:650px){.k9__plot{overflow-x:auto;}.k9__plot svg{min-width:620px;}.k9__values{gap:.5rem 1rem;}}
+@media print{.k9__controls,.k9__year,.k9__exports{display:none;}.k9__plot{overflow:visible;}}
+
+.k9__area {justify-content:flex-start;font-size:.8rem;}
+.k9__area select {font:inherit;color:var(--svart);background:var(--papper);border:1px solid var(--gbg-morkbla);padding:.4rem .6rem;border-radius:4px;min-height:36px;}
+.k9 select:focus-visible {outline:2px solid var(--svart);outline-offset:3px;}
+.k9__balancevalues {display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.k9__balancevalues > div {border-top:1px solid var(--linje);padding-top:.55rem;}
+.k9__balancevalues span {max-width:28ch;}
+.steg .k9__sammanfattning{background:#f1f4f5;border-top:3px solid #3f5564;padding:1rem;}.steg .k9__sammanfattning p{font-size:.95rem;line-height:1.6;margin:0;}.steg .k9__sammanfattning p+p{margin-top:.8rem;}
+
+.k9__ageinfo{background:#f1f4f5;border-top:3px solid #3f5564;padding:.7rem;font-size:.8rem;}.k9__agevalues{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}.k9__agevalues p{font-size:.78rem!important;margin:.3rem 0!important;}.k9__plot rect[role="button"]:focus{outline:2px solid #1f1f1f;}
+
+.k9__agehint{font-size:.85rem!important;line-height:1.5!important;margin:.6rem 0 .9rem!important;max-width:none!important;}.k9__plot rect[role="button"]{cursor:pointer;}
+
+.k9__balancegrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:1rem;align-items:start;}.k9__balancecard{min-width:0;border-top:1px solid #d1d9dc;padding-top:.6rem;}.k9__balancecard h4{font-size:1rem;margin:0 0 .3rem;}.k9__balancecard svg{width:100%;display:block;}.k9__balancecity{grid-row:span 2;align-self:center;}.k9__balanceshares p{font-size:.78rem!important;line-height:1.5!important;margin:.4rem 0!important;}@media(min-width:1100px){#steg-5{grid-template-columns:minmax(250px,.8fr) minmax(0,2fr);gap:2rem;}#steg-5 h2{font-size:2.35rem;}#steg-5 .steg__vanster>p{font-size:1rem;}}@media(max-width:1099px){.k9__balancegrid{grid-template-columns:1fr 1fr;}.k9__balancecity{grid-column:1/-1;grid-row:auto;max-width:460px;width:100%;justify-self:center;}}@media(max-width:550px){.k9__balancegrid{grid-template-columns:1fr;}}
+
+/* Rymligare jämförelse: Göteborg först, stadsområdena två och två. */
+.k9__balancegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem 1.8rem;}
+.k9__balancecity{grid-column:1/-1;grid-row:auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0 1.5rem;align-items:center;max-width:none;width:100%;}
+.k9__balancecity h4{grid-column:1/-1;}
+.k9__balancecard h4{font-size:1.1rem;}
+.k9__balanceshares p{font-size:.88rem!important;}
+.k9__balanceshares strong{white-space:nowrap;}
+@media(max-width:550px){.k9__balancegrid{grid-template-columns:1fr;}.k9__balancecity{display:block;}}
+
+.k9__balancegrid{display:block;}.k9__districts{margin:1rem 0;border:1px solid #d1d9dc;border-radius:5px;padding:.8rem 1rem;}.k9__districts>summary{font-weight:700;cursor:pointer;}.k9__districtgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem;}.k9__districtgrid .k9__balancecard{background:#f1f4f5;border:1px solid #d1d9dc;border-radius:4px;padding:1rem;}.k9__districtgrid .k9__balanceshares{border-top:1px solid #d1d9dc;padding-top:.4rem;}@media(max-width:650px){.k9__districtgrid{grid-template-columns:1fr;}}

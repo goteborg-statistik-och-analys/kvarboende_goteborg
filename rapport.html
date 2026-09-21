@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ett år i Göteborg — rörlighet i bostadsbeståndet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=1ab762411f13">
+<link rel="stylesheet" href="assets/css/rapport.css?v=77e4a3ef511a">
+<link rel="stylesheet" href="assets/css/navigation.css?v=5d5a7dbf015e">
+<link rel="stylesheet" href="assets/css/intro-slutversion.css?v=2">
+<link rel="stylesheet" href="arbetslage.css"><link rel="stylesheet" href="assets/css/gemensamt.css?v=20260920"><script src="assets/js/rapportinstallningar.js"></script></head>
+
+<body>
+
+<a class="hoppa" href="#scen">Hoppa till innehållet</a>
+
+<header class="topp"><div class="topp__vanster"><a class="topp__hem" href="index.html">Start</a><p class="topp__kapitel">1. Rörlighet i Göteborgs bostadsbestånd</p><details class="kapitelmeny"><summary>Kapitel</summary><nav class="kapitelmeny__lista" aria-label="Rapportens kapitel"><ol><li><a href="rapport.html#steg-1" aria-current="page"><b>1.</b><span>Rörlighet i Göteborgs bostadsbestånd</span></a></li><li><a href="kapitel2.html#steg-1"><b>2.</b><span>Är det här normalt?</span></a></li><li><a href="kapitel3.html#steg-1"><b>3.</b><span>Ålder och rörlighet</span></a></li><li><a href="kapitel4.html#steg-1"><b>4.</b><span>Kvar, men var?</span></a></li><li><a href="kapitel5.html#steg-1"><b>5.</b><span>Bostaden</span></a></li><li><a href="kapitel6.html#steg-1"><b>6.</b><span>Beståndets geografi</span></a></li><li><a href="kapitel7.html#steg-1"><b>7.</b><span>Vad förklarar områdesskillnaderna?</span></a></li><li><a href="kapitel8.html#steg-1"><b>8.</b><span>Annat som spelar in</span></a></li><li><a href="kapitel9.html#steg-1"><b>9.</b><span>Över flera år</span></a></li><li><a href="kapitel10.html#steg-1"><b>10.</b><span>Hushållsstabilitet</span></a></li><li><a href="sammanfattning.html#steg-1"><b>•</b><span>Sammanfattning</span></a></li></ol><a class="kapitelmeny__start" href="index.html">Till landningssidan</a></nav></details></div><div class="topp__verktyg"><button class="topp__metod" id="oppna-metod" type="button">Så mäter vi</button></div></header>
+
+<main class="scen" id="scen" tabindex="-1">
+
+  <!-- Steg 1 ------------------------------------------------- -->
+  <section class="steg steg--intro aktiv" id="steg-1" data-steg="0" aria-label="Utgångspunkten" aria-hidden="false">
+    <div class="steg__vanster">
+      <p class="steg__etikett">Utgångspunkt</p>
+      <h1>Ett år i Göteborg</h1>
+      <p>
+        Vid årsskiftet 2024 var
+        <span data-intro="start">608&nbsp;993</span> personer folkbokförda i Göteborg.
+        Ett år senare var de <span data-intro="slut">613&nbsp;276</span>. Den första frågan är enkel:
+        <strong class="steg__fraga">Är det samma personer som bor här ett år senare?</strong>
+      </p>
+
+      <p class="not">
+        Vi jämför var befolkningen var folkbokförd den 31 december 2024 med var
+        samma personer var folkbokförda 31 december 2025. Det är inte samma sak
+        som antalet registrerade flyttningar under året.
+      </p>
+    </div>
+
+    <div class="steg__hoger">
+      <ul class="tresiffror intro-nyckeltal" aria-label="Två nyckeltal om kvarboende under ett år">
+        <li><b data-intro="goteborg">94,5 %</b><span>fanns kvar i Göteborg ett år senare</span></li>
+        <li><b data-intro="bostad">83,1 %</b><span>bodde kvar i samma bostad</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sparad för en senare bild. Innehållet i template visas eller körs inte här. -->
+  <template id="ringanimation-reserv">
+      <figure class="ring" id="ring" aria-labelledby="ringbeskrivning">
+        <p class="visuellt-dold" id="ringbeskrivning">
+          Av startbefolkningen bodde 83,1 procent kvar i samma bostad och
+          11,4 procent bytte bostad inom Göteborg.
+        </p>
+        <div class="ring__duk">
+          <canvas id="ringduk" aria-hidden="true"></canvas>
+          <div class="ring__mitt">
+            <b data-falt="start">608 996</b>
+            <span>folkbokförda<br>31 december <span data-falt="fran">2024</span></span>
+          </div>
+        </div>
+        <figcaption class="ring__nyckel" id="ringnyckel"></figcaption>
+      </figure>
+  </template>
+
+  <!-- Steg 2 ------------------------------------------------- -->
+  <section class="steg" id="steg-2" data-steg="1" aria-label="Vad hände med befolkningen" aria-hidden="true" inert>
+    <div class="steg__vanster">
+      <p class="steg__etikett">De som lämnar</p>
+      <h2>Var tjugonde var inte kvar i Göteborg ett år senare</h2>
+      <p>
+        <span data-sida2="lamnat-antal">33 637</span> personer,
+        eller <span data-sida2="lamnat-andel">5,5 procent</span> av befolkningen den
+        31 december 2024, fanns inte kvar i Göteborg ett år senare. Av de personer
+        som bodde kvar var de flesta folkbokförda i samma bostad.
+      </p>
+
+      <aside class="slutsatsmarkering bostadsbortfall" aria-label="När bostaden inte kan jämföras">
+        <p><strong>För omkring två procent av hela startbefolkningen visar uttaget att personerna finns kvar i Göteborg, men bostadsjämförelsen kan inte avgöras.</strong></p>
+        <p>De ingår i andelen kvar i Göteborg, men räknas varken som bekräftat kvar i samma bostad eller som bekräftat bostadsbyte.</p>
+        <p><strong>83,1 procent är alltså andelen med bekräftat kvarboende i samma bostad.</strong> För den oklassificerade gruppen känner vi inte bostadsutfallet.</p>
+      </aside>
+      <p class="not bostadsbortfall-scb">SCB beskriver att en del folkbokförda saknar koppling till lägenhetsregistret. I kvalitetsdeklarationen för 2025 anges cirka 2,6 procent nationellt. <a href="https://www.scb.se/contentassets/9299bfcd87ba4c828a8d46b4db49d67a/be0101_-kd_2025.pdf#page=14" target="_blank" rel="noopener">SCB:s beskrivning, sidan 14</a>.</p>
+    </div>
+    <div class="steg__hoger">
+      <figure class="utfallslista" aria-labelledby="utfallslista-rubrik">
+        <figcaption class="utfallslista__rubrik" id="utfallslista-rubrik">
+          Var bodde de <strong data-sida2="start">608 993</strong> folkbokförda
+          31 december <span data-sida2-ar="2024">2024</span> ett år senare?
+        </figcaption>
+
+        <section class="utfallsgrupp" aria-labelledby="kvar-rubrik">
+          <div class="utfallsgrupp__huvud">
+            <h3 id="kvar-rubrik">Kvar i Göteborg ett år senare</h3>
+            <p><strong data-sida2="kvar-antal">575 356</strong><span class="talmarkering" data-sida2="andel-kvar-goteborg">94,5 %</span></p>
+          </div>
+          <dl class="utfallsgrupp__rader">
+            <div>
+              <dt><span class="prick" data-farg="samma"></span>Kvar i samma bostad</dt>
+              <dd><strong data-sida2="samma-antal">506 073</strong><span>(<span data-sida2="samma-andel">83,1 %</span>)</span></dd>
+            </div>
+            <div>
+              <dt><span class="prick" data-farg="inom"></span>Bytt bostad inom staden</dt>
+              <dd><strong data-sida2="inom-antal">57 301</strong><span>(<span data-sida2="inom-andel">9,4 %</span>)</span></dd>
+            </div>
+            <div>
+              <dt><span class="prick" style="background:#d1d9dc"></span>Bostadsuppgift saknas eller är oklar</dt>
+              <dd><strong data-sida2="okand-antal">11 982</strong><span>(<span data-sida2="okand-andel">2,0 %</span>)</span></dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="utfallsgrupp utfallsgrupp--inte" aria-labelledby="inte-kvar-rubrik">
+          <div class="utfallsgrupp__huvud">
+            <h3 id="inte-kvar-rubrik">Inte kvar i Göteborg ett år senare</h3>
+            <p><strong data-sida2="lamnat-antal">33 637</strong><span class="talmarkering" data-sida2="lamnat-andel-kort">5,5 %</span></p>
+          </div>
+          <dl class="utfallsgrupp__rader">
+            <div>
+              <dt><span class="prick" data-farg="gr"></span>Övriga Göteborgsregionen</dt>
+              <dd><strong data-sida2="gr-antal">10 319</strong><span>(<span data-sida2="gr-andel">1,7 %</span>)</span></dd>
+            </div>
+            <div>
+              <dt><span class="prick" data-farg="sverige"></span>Övriga Sverige</dt>
+              <dd><strong data-sida2="sverige-antal">12 408</strong><span>(<span data-sida2="sverige-andel">2,0 %</span>)</span></dd>
+            </div>
+            <div>
+              <dt><span class="prick" data-farg="bort"></span>Avlidna, utvandrade eller okänt</dt>
+              <dd><strong data-sida2="bort-antal">10 910</strong><span>(<span data-sida2="bort-andel">1,8 %</span>)</span></dd>
+            </div>
+          </dl>
+        </section>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Steg 3 ------------------------------------------------- -->
+  <section class="steg" id="steg-3" data-steg="2" aria-label="Nya göteborgare" aria-hidden="true" inert>
+    <div class="steg__vanster">
+      <p class="steg__etikett">Nytillkomna</p>
+      <h2>Nya göteborgare vid årsskiftet</h2>
+      <p>
+        <span data-sida3="nya-antal">37 920</span> personer var folkbokförda i Göteborg
+        den 31 december <span data-sida3="till">2025</span> utan
+        att ha varit det ett år tidigare. Den största gruppen hade flyttat in från
+        övriga Sverige, alltså kommuner utanför Göteborgsregionen.
+      </p>
+      <p class="not">
+        Under <span data-sida3="till">2025</span> registrerades <span data-sida3="fodda-officiell">6 875</span>
+        födslar i Göteborg. Här räknar vi i stället de <span data-sida3="nollar-antal">6 739</span>
+        nollåringar som var folkbokförda i staden vid årsskiftet.
+        Det är två olika mått.
+      </p>
+    </div>
+    <div class="steg__hoger">
+      <figure class="utfallslista utfallslista--nya" aria-labelledby="nya-tabell-rubrik">
+        <div class="utfallsgrupp__huvud">
+          <h3 id="nya-tabell-rubrik">Nya göteborgare 31 december <span data-sida3="till">2025</span></h3>
+        </div>
+
+        <dl class="utfallsgrupp__rader">
+          <div>
+            <dt><span class="prick" data-farg="fodda"></span>Nollåringar, födda under året</dt>
+            <dd><strong data-sida3="nollar-antal">6 739</strong><span>(<span data-sida3="nollar-andel">1,1 %</span>)</span></dd>
+          </div>
+          <div>
+            <dt><span class="prick" data-farg="gr"></span>Inflyttade från övriga Göteborgsregionen</dt>
+            <dd><strong data-sida3="in-gr-antal">8 389</strong><span>(<span data-sida3="in-gr-andel">1,4 %</span>)</span></dd>
+          </div>
+          <div>
+            <dt><span class="prick" data-farg="sverige"></span>Inflyttade från övriga Sverige</dt>
+            <dd><strong data-sida3="in-sverige-antal">15 155</strong><span>(<span data-sida3="in-sverige-andel">2,5 %</span>)</span></dd>
+          </div>
+          <div>
+            <dt><span class="prick" data-farg="bort"></span>Invandrade, tidigare ej folkbokförda eller okänt</dt>
+            <dd><strong data-sida3="in-utland-antal">7 637</strong><span>(<span data-sida3="in-utland-andel">1,2 %</span>)</span></dd>
+          </div>
+        </dl>
+
+        <div class="utfallsgrupp__huvud utfallsgrupp__huvud--summa">
+          <h3>Nya göteborgare</h3>
+          <p><strong data-sida3="nya-antal">37 920</strong><span class="talmarkering" data-sida3="nya-andel-kort">6,2 %</span></p>
+        </div>
+        <p class="utfallslista__fotnot">
+          Procenttalen avser andelen av de folkbokförda i Göteborg den 31 december
+          <span data-sida3="till">2025</span>.
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Steg 4: syntesen -->
+  <section class="steg" id="steg-4" data-steg="3" aria-label="Året i sin helhet" aria-hidden="true" inert>
+    <div class="steg__vanster">
+      <p class="steg__etikett">Helheten</p>
+      <h2>Året i sin helhet</h2>
+      <p>Göteborgs befolkning ökade med <strong data-sida4="forandring">4 283</strong> personer mellan årsskiftena. Samtidigt fanns <strong data-sida4="lamnat-antal">33 637</strong> av dem som bodde här ett år tidigare inte längre kvar i staden, och <strong data-sida4="nya-antal">37 920</strong> personer hade tillkommit.</p>
+      <p class="steg__slutsats">Befolkningsökningen visar alltså inte hur mycket befolkningens sammansättning förändras. Bakom siffran +<span data-sida4="forandring">4 283</span> sker många demografiska händelser när barn föds, personer avlider och personer flyttar.</p>
+    </div>
+    <div class="steg__hoger">
+      <figure class="utfallslista arsflode arsoversikt" aria-labelledby="arsbild-rubrik">
+        <figcaption id="arsbild-rubrik">Från ett årsskifte till nästa</figcaption>
+        <div class="arsflode__total arsflode__total--start">
+          <h3>Folkbokförda 31 december 2024</h3>
+          <p><strong data-sida4="start">608 993</strong></p>
+        </div>
+        <dl class="arsoversikt__kontrast">
+          <div><dt>Kvar från 2024-12-31</dt><dd data-sida4="kvar-antal">575 356</dd><dd class="arsoversikt__forklaring">Folkbokförda i Göteborg vid båda årsskiftena.</dd></div>
+          <div><dt>Inte kvar i Göteborg</dt><dd data-sida4="lamnat-antal">33 637</dd><dd class="arsoversikt__forklaring">Personer från startbefolkningen som inte längre fanns i staden.</dd></div>
+          <div><dt>Nytillkomna i Göteborg</dt><dd data-sida4="nya-antal">37 920</dd><dd class="arsoversikt__forklaring">Personer som inte var folkbokförda här vid starten.</dd></div>
+        </dl>
+        <div class="arsflode__total arsflode__total--slut">
+          <h3>Folkbokförda 31 december 2025</h3>
+          <p><strong data-sida4="slut">613 276</strong></p>
+        </div>
+        <div class="arsoversikt__okning"><span>Befolkningsökning under året</span><strong>+<span data-sida4="forandring">4 283</span></strong></div>
+        <p class="utfallslista__fotnot">Kvar avser Göteborg, oavsett om personen har bytt bostad inom staden.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Steg 5 ------------------------------------------------- -->
+  <section class="steg steg--jamforelse" id="steg-5" data-steg="4" aria-label="Det som inte syns" aria-hidden="true" inert>
+    <div class="steg__vanster">
+      <p class="steg__etikett">Mellan mättillfällena</p>
+      <h2>Mer rörelse än vad som syns i skillnaden mellan två årsskiften</h2>
+      <p>Vi ser var människor var folkbokförda vid två årsskiften. Mellan dessa tidpunkter kan en person ha flyttat flera gånger.</p>
+      <p>Den som lämnar Göteborg och återvänder före årets slut räknas som kvar i staden. Personen behöver inte ha återvänt till samma bostad.</p>
+      <p>Rapporten jämför personer vid två årsskiften. Händelsestatistiken räknar i stället födslar, dödsfall och varje registrerad flyttning under kalenderåret. Samma person kan stå för flera flytthändelser.</p>
+      <p class="steg__slutsats">Nu känner vi ett års flöden. Men är det här ett vanligt år?</p>
+    </div>
+    <div class="steg__hoger">
+<figure class="flyttexempel" aria-labelledby="flytt-rubrik">
+        <figcaption id="flytt-rubrik">Två flyttningar – ändå kvar i Göteborg</figcaption>
+        <svg class="flyttexempel__bild" viewBox="0 0 560 300" role="img" aria-labelledby="flytt-titel flytt-beskrivning">
+          <title id="flytt-titel">Två flyttningar mellan årsskiftena</title>
+          <desc id="flytt-beskrivning">Tiden går från vänster till höger. Personen bor i Göteborg den 31 december 2024, flyttar till en annan kommun under 2025 och flyttar tillbaka till Göteborg före den 31 december 2025. Båda flyttningarna sker mellan mättillfällena.</desc>
+          <text x="162" y="28" text-anchor="middle" class="flyttetikett">1. Flyttar ut</text>
+          <text x="398" y="28" text-anchor="middle" class="flyttetikett">2. Flyttar tillbaka</text>
+          <path class="flyttvag" id="flytt-ut" pathLength="1" d="M72 112 Q162 12 266 72" fill="none" stroke="#3f5564" stroke-width="2.5"/>
+          <path class="flyttvag" id="flytt-in" pathLength="1" d="M294 72 Q398 12 488 112" fill="none" stroke="#3f5564" stroke-width="2.5"/>
+          <path id="flytt-pil-ut" class="flyttpil" d="M0 0 L-11 -5 L-8 0 L-11 5 Z" transform="translate(266 72) rotate(30)" fill="#3f5564"/>
+          <path id="flytt-pil-in" class="flyttpil" d="M0 0 L-11 -5 L-8 0 L-11 5 Z" transform="translate(488 112) rotate(48)" fill="#3f5564"/>
+          <circle cx="60" cy="122" r="6" data-farg="morkbla" fill="#3f5564"/>
+          <circle cx="280" cy="78" r="6" fill="#d1d9dc" stroke="#3f5564"/>
+          <circle cx="500" cy="122" r="6" data-farg="morkbla" fill="#3f5564"/>
+          <text x="60" y="150" text-anchor="middle" font-weight="800">Göteborg</text>
+          <text x="280" y="111" text-anchor="middle" font-weight="800">Annan kommun</text>
+          <text x="500" y="150" text-anchor="middle" font-weight="800">Göteborg</text>
+          <line x1="60" x2="60" y1="160" y2="220" stroke="#d1d9dc" stroke-dasharray="3 4"/>
+          <line x1="500" x2="500" y1="160" y2="220" stroke="#d1d9dc" stroke-dasharray="3 4"/>
+          <text x="280" y="195" text-anchor="middle" class="flytt-ar">Under kalenderåret 2025</text>
+          <line x1="60" x2="500" y1="220" y2="220" stroke="#3f5564" stroke-width="2"/>
+          <circle cx="60" cy="220" r="5" fill="#ffffff" stroke="#3f5564" stroke-width="2"/>
+          <circle cx="500" cy="220" r="5" fill="#ffffff" stroke="#3f5564" stroke-width="2"/>
+          <text x="60" y="247" text-anchor="middle"><tspan x="60">31 december</tspan><tspan x="60" dy="21" font-weight="800">2024</tspan></text>
+          <text x="500" y="247" text-anchor="middle"><tspan x="500">31 december</tspan><tspan x="500" dy="21" font-weight="800">2025</tspan></text>
+        </svg>
+        <p>Två registrerade flyttningar under året. Personen räknas ändå som kvarboende i Göteborg vid jämförelsen mellan årsskiftena.</p>
+      </figure>
+      <section class="sida5-handelser" aria-labelledby="handelser-rubrik"><h3 id="handelser-rubrik">Registrerade händelser under 2025</h3><div class="sida5-bokforing"><dl><div><dt>Födda</dt><dd data-handelse="fodda">6 875</dd></div><div><dt>Avlidna</dt><dd data-handelse="avlidna">4 126</dd></div><div><dt>Flyttningar inom Göteborg</dt><dd data-handelse="flytt_inom_gbg">73 020</dd></div><div><dt>Inflyttningar från övriga GR</dt><dd data-handelse="in_gr">10 100</dd></div><div><dt>Inflyttningar från övriga Sverige</dt><dd data-handelse="in_riket">18 260</dd></div><div><dt>Invandringar</dt><dd data-handelse="invandring">7 933</dd></div><div><dt>Utflyttningar till övriga GR</dt><dd data-handelse="ut_gr">12 092</dd></div><div><dt>Utflyttningar till övriga Sverige</dt><dd data-handelse="ut_riket">15 498</dd></div><div><dt>Utvandringar</dt><dd data-handelse="utvandring">7 185</dd></div></dl><aside class="sida5-netton" aria-label="Netton som bidrar till befolkningsförändringen"><h4>Bidrag till förändringen</h4><p>Inflyttningar minus utflyttningar, samt födda minus avlidna.</p><div class="sida5-netto"><span>Födda − avlidna</span><strong>+2 749</strong></div><div class="sida5-netto"><span>Övriga GR</span><strong>−1 992</strong></div><div class="sida5-netto"><span>Övriga Sverige</span><strong>+2 762</strong></div><div class="sida5-netto"><span>Utlandet</span><strong>+748</strong></div><div class="sida5-nettosumma"><span>Summa av nettona</span><strong>+4 267</strong></div><div class="sida5-netto sida5-avstamning"><span>Avstämningsdifferens</span><strong>+16</strong></div><div class="sida5-nettosumma"><span>Befolkningsökning</span><strong>+4 283</strong></div></aside></div><p class="sida5-internflytt">Flyttningar inom Göteborg påverkar inte stadens befolkningsökning.</p><p class="utfallslista__fotnot">Befolkningen ökade med 4 283 personer mellan årsskiftena i vårt underlag (613 276 − 608 993). Händelsetalens netto är +4 267; avstämningsdifferensen är därför +16. SCB:s befolkningsredovisning innehåller också en justeringspost för tidigare händelser som rapporterats senare. Sekretesskyddet CKM och skillnader mellan underlagen kan påverka avstämningen. De 16 är här en beräknad differens, inte en separat uppmätt justeringspost.<br>Källa för händelser: SCB:s befolkningsstatistik via Göteborgs Stads statistikdatabas. GR = Göteborgsregionen.</p></section>
+    </div>
+  </section>
+
+</main>
+
+<!-- Metodpanel ------------------------------------------------ -->
+<dialog class="metod" id="metod" aria-labelledby="metod-rubrik">
+  <button class="metod__stang" id="stang-metod" type="button" aria-label="Stäng hjälptext"><span aria-hidden="true">×</span> Stäng hjälptext</button>
+  <div class="metod__inner">
+    <h2 id="metod-rubrik">Så mäter vi</h2>
+
+    <p>
+      Analysen bygger på folkbokföringen. Vi tar alla som var folkbokförda i
+      Göteborg den 31 december ett år och ser var samma personer var
+      folkbokförda den 31 december året därpå.
+    </p>
+
+    <h3>Kvarboende och byte av folkbokföringsadress</h3>
+    <p>
+      <strong>Kvarboende</strong> betyder att personen är folkbokförd på samma
+      lägenhet vid båda årsskiftena. <strong>Byte av folkbokföringsadress</strong>,
+      i kortform bytt bostad, betyder att adressen är en annan.
+    </p>
+    <p>
+      Detta är inte detsamma som flyttningar i den officiella
+      befolkningsstatistiken. Där räknas varje registrerad flyttning under
+      kalenderåret, och en person kan flytta flera gånger. Hos oss räknas
+      personer, inte händelser. Den som flyttat två gånger och landat där hon
+      började räknas som kvarboende.
+    </p>
+
+    <h3>Nollåringar, inte födda</h3>
+    <p>
+      Det vi kallar nollåringar är barn födda under året som är folkbokförda i
+      Göteborg vid årsskiftet. Det är något färre än antalet barn som föddes i
+      Göteborg, eftersom en del flyttat under året och andra flyttat hit.
+    </p>
+
+    <h3>Avlidna och utvandrade</h3>
+    <p>
+      De två går inte att skilja åt i vårt material. Registret visar bara att
+      personen inte längre är folkbokförd i Sverige. I fördjupningen i steg fem
+      jämförs kategorin med summan av officiellt registrerade utvandringar och dödsfall.
+    </p>
+
+    <h3>När bostadsuppgiften saknas eller är oklar</h3><p>Det gäller personer som är folkbokförda i Göteborg båda åren, men vars bostadsjämförelse inte kan avgöras i uttaget. De räknas varken som bekräftat kvar i samma bostad eller som bekräftat bostadsbyte.</p><p>Andelen 83,1 procent avser bekräftat kvarboende i samma bostad, med hela startbefolkningen som nämnare.</p><p>Personerna ingår i Göteborgs befolkning och i andelen kvar i staden. Bortfallet gäller jämförelsen av bostad, och fördelas inte ut mellan samma och annan bostad.</p><h3>Bostäder</h3>
+    <p>
+      En bostad räknas här som en lägenhet där någon är folkbokförd. Tomma
+      lägenheter syns aldrig i materialet. År <span data-falt="till">2025</span> fanns
+      <span data-falt="bostader-register">312&nbsp;429</span> bostäder i lägenhetsregistret och
+      <span data-falt="bostadshushall">298&nbsp;122</span> bostadshushåll. Skillnaden är
+      <span data-falt="bostader-tomma">14&nbsp;307</span>
+      bostäder. Registertotalernas avgränsningar behöver jämföras innan
+      skillnaden tolkas som bostäder utan folkbokförda; den mäter inte i sig fysisk vakans.
+    </p>
+
+<h3>Källor</h3>
+    <p id="metod-kallor"></p>
+
+  </div>
+</dialog>
+
+<nav class="navigering" aria-label="Delsidor i kapitel 1">
+<button class="nav__knapp" id="bakat" type="button" aria-label="Föregående delsida" title="Föregående delsida · vänsterpil">←</button>
+<ol class="nav__punkter" id="punkter"></ol><span class="nav__antal"></span>
+<button class="nav__knapp" id="framat" type="button" aria-label="Nästa delsida" title="Nästa delsida · högerpil">→</button>
+<a class="nav__nasta" href="kapitel2.html#steg-1" aria-label="Nästa kapitel: 2. Är det här normalt?" title="2. Är det här normalt?" hidden>Nästa <span aria-hidden="true">→</span></a>
+</nav>
+
+
+<p class="visuellt-dold" id="stegstatus" aria-live="polite"></p>
+
+<script src="data/flode.js?v=032e635a07d5"></script>
+<script src="assets/js/farger.js?v=6136b5aa2ad9"></script>
+<script src="assets/js/rapport.js?v=7bf154d05777"></script>
+<script src="assets/js/flyttexempel.js?v=2068b3ea50b6"></script>
+<script src="assets/js/navigation.js?v=a204e68a07a5"></script>
+<script src="data/intro-slutversion.js"></script><script src="assets/js/intro-slutversion.js?v=2"></script>
+<script src="data/sida2-slutversion.js"></script><script src="assets/js/sida2-slutversion.js"></script>
+<script src="data/sida3-slutversion.js"></script><script src="assets/js/sida3-slutversion.js"></script>
+<script src="data/sida4-slutversion.js"></script><script src="assets/js/sida4-slutversion.js"></script>
+<script src="data/sida5-slutversion.js"></script>
+<script src="arbetslage.js"></script></body>
+</html>
