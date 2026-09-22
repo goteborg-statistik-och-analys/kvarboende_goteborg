@@ -115,7 +115,7 @@
 .k4__bostadsjamforelse summary{cursor:pointer;font-weight:600;}
 .k4__bostadsjamforelse .k4__vald-bostadsform{background:#c0e4f2;}
 
-.k4__bostadstabell tfoot th,.k4__bostadstabell tfoot td{font-weight:700;border-top:2px solid #3f5564;}.k4__bostadstabell .k4__prijamforelse{border-left:1px solid #d1d9dc;}.k4__bostadstabell th small{display:block;font-size:.65rem;font-weight:400;line-height:1.4;margin-top:.3rem;}
+.k4__bostadstabell tfoot th,.k4__bostadstabell tfoot td{font-weight:700;border-top:2px solid #3f5564;}.k4__bostadstabell th small{display:block;font-size:.65rem;font-weight:400;line-height:1.4;margin-top:.3rem;}
 
 @media(min-width:1101px){.k4__atlas:has(.k4__prijamforelse){grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr);}}
 .k4__nyprofil .k4__bostadstabell{table-layout:fixed;}.k4__bostadstabell th{white-space:normal;overflow-wrap:anywhere;}.k4__bostadstabell th:first-child{width:26%;}.k4__bostadstabell td{white-space:nowrap;}.k4__bostadstabell tfoot th:first-child{font-weight:700;}
