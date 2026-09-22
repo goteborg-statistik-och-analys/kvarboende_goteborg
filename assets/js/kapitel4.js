@@ -138,9 +138,20 @@
     function render(){content.replaceChildren();const isAge=map.profile==='alder';buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===(isAge?1:0))));
       if(!rows){content.append(html('p','','Underlag saknas för området.'));return;}
       content.append(html('p','k4__profilnot','31 december 2025 · direkt räknat för vald områdesnivå.'));
-      if(!isAge){const data=[['Bostadstyp','Bebodda bostäder','Personer','Andel invånare'],...rows.map(r=>[r.name,val(r.homes),val(r.persons),share(r)==null?missing:fmt(share(r))+' %'])];
-        const wrap=html('div','k4__profilscroll'),t=html('table','k4__bostadstabell'),head=t.createTHead().insertRow();data[0].forEach(n=>{const th=html('th','',n);th.scope='col';head.append(th);});const body=t.createTBody();data.slice(1).forEach(row=>{const tr=body.insertRow();row.forEach((n,i)=>{const cell=html(i?'td':'th','',n===missing?'—':n);if(n===missing)cell.title=missing+' – underlaget är ofullständigt eller skyddat';tr.append(cell);});});wrap.append(t);content.append(wrap);table(map,data);
-        content.append(html('p','k4__profilnot','Andel av områdets invånare. Bostadsrätt och hyresrätt avser flerbostadshus. Äganderätt i flerbostadshus ingår i övrigt. Personer utan bostadsuppgift ingår i sista personkategorin, men kan inte räknas som kända bebodda bostäder.'));
+      if(!isAge){
+        const compare=level>0&&level<4,priCode=chain[0].properties.omrade_kod,priName=chain[0].properties.omrade_namn,priRows=P.data.pri[priCode],priPopulation=S.pri[priCode]?.[3];
+        const percent=(n,total)=>n!=null&&total>0?fmt(100*n/total)+' %':missing;
+        const headers=['Bostadstyp','Bebodda bostäder','Personer','Andel invånare',...(compare?[priName]:[])];
+        const values=rows.map(r=>[r.name,val(r.homes),val(r.persons),percent(r.persons,pop?.[3]),...(compare?[percent(priRows?.find(p=>p.name===r.name)?.persons,priPopulation)]:[])]);
+        const homes=rows.every(r=>Number.isFinite(r.homes))?rows.reduce((sum,r)=>sum+r.homes,0):null;
+        const totals=['Totalt',val(homes),val(pop?.[3]),pop?.[3]>0?'100,0 %':missing,...(compare?[priPopulation>0?'100,0 %':missing]:[])];
+        const data=[headers,...values,totals];
+        const wrap=html('div','k4__profilscroll'),t=html('table','k4__bostadstabell'),head=t.createTHead().insertRow();
+        headers.forEach((n,i)=>{const th=html('th','',n);th.scope='col';if(compare&&i===4){th.append(html('small','','Andel invånare i primärområdet'));th.className='k4__prijamforelse';}head.append(th);});
+        function addRow(section,row){const tr=section.insertRow();row.forEach((n,i)=>{const cell=html(i?'td':'th','',n===missing?'—':n);if(!i)cell.scope='row';if(n===missing)cell.title=missing+' – underlaget är ofullständigt eller skyddat';if(compare&&i===4)cell.className='k4__prijamforelse';tr.append(cell);});}
+        const body=t.createTBody();values.forEach(row=>addRow(body,row));addRow(t.createTFoot(),totals);wrap.append(t);content.append(wrap);table(map,data);
+        content.append(html('p','k4__profilnot','Andel av områdets invånare.'+(compare?' Sista kolumnen visar motsvarande andelar i '+priName+'.':'')+' Bostadsrätt och hyresrätt avser flerbostadshus. Äganderätt i flerbostadshus ingår i övrigt. Personer utan bostadsuppgift ingår i sista personkategorin, men kan inte räknas som kända bebodda bostäder.'));
+        content.append(html('p','k4__profilnot','Totalt antal personer är områdets invånarantal. Avrundade andelar kan avvika från 100 procent vid summering. Om någon bostadskategori inte kan redovisas visas ingen summa för bebodda bostäder.'));
       }else{
         map.housingType??=0;const chooser=html('label','k4__bostadsval','Bostadstyp '),select=html('select');select.setAttribute('aria-label','Välj bostadstyp för åldersfördelning');P.names.forEach((name,i)=>{const o=html('option','',name);o.value=i;select.append(o);});select.value=map.housingType;select.addEventListener('change',()=>{map.housingType=Number(select.value);render();});chooser.append(select);content.append(chooser);
         const r=rows[map.housingType],ref=P.data.gbg['1480'][map.housingType],max=60,W=480,H=380,left=60,right=424,top=35,step=24,x=v=>left+v/max*(right-left),y=i=>top+i*step;
