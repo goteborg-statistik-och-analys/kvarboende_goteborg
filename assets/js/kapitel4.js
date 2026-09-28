@@ -129,7 +129,7 @@
     root.replaceChildren();if(level===4){root.append(html('h3','','Göteborgsregionens 13 kommuner'),html('p','','13 kommuner i ett regionalt sammanhang.'),html('p','','Göteborg är markerat. Välj en nivå inom Göteborg för att utforska kvarboende, åldrar och boendeformer.'));table(map,[['Geografisk nivå','Område'],...chain.slice(0,4).map((f,i)=>[['Primärområde','Mellanområde','Stadsområde','Kommun'][i],f.properties.omrade_namn||f.properties.kommun_namn])]);return;}
 
     const S=window.KARTSTATISTIK,P=window.K4_BOSTADSPROFIL,kind=['pri','mo','so','gbg'][level],geo=chain[level].properties,code=level===3?'1480':geo.omrade_kod,name=geo.omrade_namn||geo.kommun_namn,pop=S[kind][code],kvar=window.K4S3_SLUTVERSION[kind][code],rows=P.data[kind][code];
-    root.append(html('h3','',(['PRI: ','MO: ','SO: ',''][level])+name));
+    root.append(html('h3','',(['Primärområde: ','Mellanområde: ','Stadsområde: ',''][level])+name));
     const metrics=html('div','k4__profilnycklar');
     for(const [value,title] of [[kvar?.share!=null?fmt(kvar.share)+' %':'Uppgift saknas','Kvar i samma bostad 2024–2025'],[pop?fmt(pop[3],0):'Uppgift saknas','Invånare 31 december 2025']]){const p=html('p');p.append(html('strong','',value),html('span','',title));metrics.append(p);}root.append(metrics);
     const tabs=html('div','k4__profiltabs'),content=html('div','k4__nyprofil');tabs.setAttribute('role','group');tabs.setAttribute('aria-label','Välj bostadstabell eller åldersfördelning');root.append(tabs,content);

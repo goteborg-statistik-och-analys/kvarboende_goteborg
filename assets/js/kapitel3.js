@@ -30,7 +30,7 @@
     {id:'k3-total',multi:true,compact:true,trend:true,measure:'samma_bostad',group:0,title:'Kvar i samma bostad',series:trendSeries('samma_bostad'),min:60,max:100,full:false},
     {id:'k3-ut',multi:true,compact:true,profile:true,outcompare:true,title:'Utflyttning inom Sverige, efter ålder',series:[ageSeries('utflode_gr','Till övriga Göteborgsregionen',flowColors.gr),ageSeries('utflode_sverige','Till övriga Sverige',flowColors.sverige)],min:0,max:8},
     {id:'k3-in',multi:true,compact:true,profile:true,incompare:true,title:'Nytillkomna göteborgare, efter ålder',series:[ageSeries('inflode_gr','Från övriga Göteborgsregionen',flowColors.gr_in),ageSeries('inflode_sverige','Från övriga Sverige',flowColors.sverige_in),ageSeries('inflode_invandrad','Invandrade, tidigare ej folkbokförda eller okänt',flowColors.invandrade)],min:0,max:12,end:true},
-    {id:'k3-netto',multi:true,compact:true,profile:true,net:true,title:'Inrikes in minus ut, efter ålder',series:[{id:'netto_inrikes',namn:'Inrikes netto, alla åldrar',farg:'morkbla',varden:window.K3S5_SLUTVERSION.total,ageValues:window.K3S5_SLUTVERSION.history}],min:-5000,max:5000}
+    {id:'k3-netto',multi:true,compact:true,profile:true,net:true,title:'Utbyte mellan årsskiften, efter ålder',series:[{id:'netto_inrikes',namn:'Inrikes netto, alla åldrar',farg:'morkbla',varden:window.K3S5_SLUTVERSION.total,ageValues:window.K3S5_SLUTVERSION.history}],min:-5000,max:5000}
   ];
   const valueText = (p,n) => p.net ? (n===null?'Kan inte redovisas':(n>0?'+':'')+n.toLocaleString('sv-SE')) : fmt(n,p.trend||p.overview||p.outcompare||p.incompare?1:2);
   const indexFor = p => p.overview ? D.ar.indexOf('2025') : yearIndex;
@@ -78,8 +78,8 @@
     });
     return svg;
   }
-  const inViews=[['compare','Jämför alla'],['gr','Från övriga GR'],['sweden','Från övriga Sverige'],['abroad','Invandrade/tidigare ej folkbokförda/okänt¹'],['total','Totalt inflyttade']];
-  const inSorts=[['age','Ålder'],['total','Total inflyttning ↓'],['gr','Från övriga GR ↓'],['sweden','Från övriga Sverige ↓'],['abroad','Tidigare ej i Sverige ↓']];
+  const inViews=[['compare','Jämför alla'],['gr','Från övriga GR'],['sweden','Från övriga Sverige'],['abroad','Invandrade/tidigare ej folkbokförda/okänt¹'],['total','Nytillkomna, exklusive barn födda under året']];
+  const inSorts=[['age','Ålder'],['total','Nytillkomna totalt ↓'],['gr','Från övriga GR ↓'],['sweden','Från övriga Sverige ↓'],['abroad','Tidigare ej i Sverige ↓']];
   function incomingRows(p) {
     const idx=indexFor(p);
     return D.aldrar_namn.map((age,i)=>{
@@ -106,7 +106,7 @@
     rows.forEach((row,i)=>{
       const cy=top+i*rowH+rowH/2;
       svg.append(node('text',{x:58,y:cy+4,'text-anchor':'end'},row.age.replace(' år','')));
-      if(bars){const value=row[p.view],k=[...keys,'total'].indexOf(p.view),s=p.view==='total'?{namn:'Totalt inflyttade',farg:'morkbla'}:p.series[k];if(value!==null){const bar=node('rect',{x:x(0),y:cy-7,width:x(value)-x(0),height:14,fill:colors[s.farg]});bar.append(node('title',{},row.age+' · '+s.namn+': '+fmt(value,1)));svg.append(bar);}if(columns){const label=node('text',{x:width-7,y:cy+4,'text-anchor':'end'},value===null?'—':incomingValue(row,k));if(value===null)label.append(node('title',{},incomingValue(row,k)));svg.append(label);}}
+      if(bars){const value=row[p.view],k=[...keys,'total'].indexOf(p.view),s=p.view==='total'?{namn:'Nytillkomna, exklusive barn födda under året',farg:'morkbla'}:p.series[k];if(value!==null){const bar=node('rect',{x:x(0),y:cy-7,width:x(value)-x(0),height:14,fill:colors[s.farg]});bar.append(node('title',{},row.age+' · '+s.namn+': '+fmt(value,1)));svg.append(bar);}if(columns){const label=node('text',{x:width-7,y:cy+4,'text-anchor':'end'},value===null?'—':incomingValue(row,k));if(value===null)label.append(node('title',{},incomingValue(row,k)));svg.append(label);}}
       else {
         const values=keys.map(k=>row[k]).filter(v=>v!==null);if(values.length>1)svg.append(node('line',{x1:x(Math.min(...values)),x2:x(Math.max(...values)),y1:cy,y2:cy,stroke:'#b9c2c8','stroke-width':2}));
         keys.forEach((key,k)=>{
@@ -133,7 +133,7 @@
     inSorts.forEach(([id,name])=>{const o=document.createElement('option');o.value=id;o.textContent=name;p.sortSelect.append(o);});
     p.sortSelect.addEventListener('change',()=>{p.sort=p.sortSelect.value;draw(p);});label.append(p.sortSelect);p.root.querySelector('.k2__skalrad').append(label);
     const guide=document.createElement('p');guide.className='k3__kontrollhjalp';
-    guide.textContent='Totalt inflyttade summerar de tre ursprungen, exklusive nollåringar. Streck betyder att uppgiften saknas eller inte kan redovisas. En skyddad delpost kan göra att även en stor sammanslagen kategori eller total inte kan visas. Det betyder inte att hela gruppen är liten.';
+    guide.textContent='Nytillkomna, exklusive barn födda under året summerar de tre ursprungen, exklusive nollåringar. Streck betyder att uppgiften saknas eller inte kan redovisas. En skyddad delpost kan göra att även en stor sammanslagen kategori eller total inte kan visas. Det betyder inte att hela gruppen är liten.';
     p.root.querySelector('.k2__skalrad').after(guide);
   }
   function ageChart(p, width) {
@@ -209,13 +209,13 @@
       p.sortSelect.value=p.sort||'age';
     }
     if(p.incompare){
-      p.title=p.view==='total'?'Totalt inflyttade, efter ålder':p.view && p.view!=='compare'?p.series[['gr','sweden','abroad'].indexOf(p.view)].namn:'Nytillkomna göteborgare, efter ålder';
+      p.title=p.view==='total'?'Nytillkomna, exklusive barn födda under året, efter ålder':p.view && p.view!=='compare'?p.series[['gr','sweden','abroad'].indexOf(p.view)].namn:'Nytillkomna göteborgare, efter ålder';
       p.viewButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===(p.view||'compare'))));p.sortSelect.value=p.sort||'age';
     }
     if(p.net) {
       p.netAgeLabel.hidden=p.profile;
       const a=p.netAge.value;p.series[0].varden=p.profile||a==='total'?window.K3S5_SLUTVERSION.total:window.K3S5_SLUTVERSION.history.map(row=>row[Number(a)]);p.series[0].namn=p.profile||a==='total'?'Inrikes netto, alla åldrar':'Inrikes netto, '+D.aldrar_namn[Number(a)];
-      p.title=p.profile?'Inrikes netto, efter ålder':'Inrikes netto över tid';
+      p.title=p.profile?'Inrikes personnetto, efter ålder':'Inrikes personnetto mellan årsskiften';
       p.netButtons.forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.view==='age')===p.profile)));
     }
     const shown = visibleSeries(p), s = shown[0];
@@ -269,7 +269,7 @@
     p.slider.value = yearIndex;
     if (p.yearLabel) p.yearLabel.textContent = "Årsskifte " + D.ar[yearIndex];
     p.slider.setAttribute("aria-valuetext", period(yearIndex) + ": " + shown.map(v => v.namn + " " + valueText(p,v.varden[yearIndex])).join("; "));
-    p.caption.textContent = (p.net ? 'Antal inflyttade minus utflyttade inom Sverige. ' : 'Andel (%) av åldersgruppens '+(p.end?'slutbefolkning':'startbefolkning')+'. ')+'Ålder vid slutåret. Jämförelse 31 december '+(Number(D.ar[yearIndex])-1)+' till 31 december '+D.ar[yearIndex]+'.';
+    p.caption.textContent = (p.net ? 'Nytillkomna från andra svenska kommuner minus personer som återfinns där vid slutet. ' : 'Andel (%) av åldersgruppens '+(p.end?'slutbefolkning':'startbefolkning')+'. ')+'Ålder vid slutåret. Jämförelse 31 december '+(Number(D.ar[yearIndex])-1)+' till 31 december '+D.ar[yearIndex]+'.';
     if(p.net && !p.profile) p.caption.textContent=s.namn+'. Tunna grå linjer visar åldersgrupperna. Luckor betyder att ett underliggande tal är skyddat; de fylls inte i. Totalt beräknas separat för hela befolkningen. Varje år jämförs folkbokföringen vid två på varandra följande årsskiften. Plus: fler kom från andra svenska kommuner än lämnade för dem. Minus: fler lämnade än kom.';
     if(p.overview) p.caption.textContent+=(p.view && p.view!=='compare' ? ' Staplarna visar '+(p.view==='home'?'kvar i samma bostad':'kvar i Göteborg')+'.' : ' Öppen ring: samma bostad. Fylld punkt: kvar i Göteborg. Övriga kvar i Göteborg = skillnaden mellan måtten, i procentenheter. Här ingår annan bostad och bostadsbyte som inte kan avgöras.')+' Sortering: '+({age:'ålder, stigande',home:'bostad, högst först',city:'Göteborg, högst först',diff:'övriga kvar i Göteborg, högst först'}[p.sort||'age'])+'.';
     if(p.outcompare)p.caption.textContent+=' Övr. GR = övriga Göteborgsregionen. Övr. Sv. = kommuner utanför Göteborgsregionen. ¹ Diff = övriga Sverige minus övriga Göteborgsregionen, i procentenheter. Plus betyder större andel till övriga Sverige; minus större andel till regionen. Sortering: '+({age:'ålder',home:'andel till regionen, högst först',city:'andel till övriga Sverige, högst först',total:'total inrikes utflyttning, högst först',diff:'övervikt övriga Sverige',diffAsc:'övervikt regionen'}[p.sort||'age'])+'.';
@@ -540,7 +540,7 @@
   }
   function tableRows(p) {
     const yearIndex=indexFor(p);
-    if(p.incompare)return [['Ålder vid slutåret',...p.series.map(s=>s.namn+' (%)'),'Total inflyttning (%)'],...incomingRows(p).map(row=>[row.age,...[0,1,2,3].map(k=>incomingValue(row,k).replace(' %',''))])];
+    if(p.incompare)return [['Ålder vid slutåret',...p.series.map(s=>s.namn+' (%)'),'Nytillkomna totalt (%)'],...incomingRows(p).map(row=>[row.age,...[0,1,2,3].map(k=>incomingValue(row,k).replace(' %',''))])];
     if(p.outcompare)return [['Ålder vid slutåret','Till övriga Göteborgsregionen (%)','Till övriga Sverige (%)','Övriga Sverige minus övriga GR (procentenheter)','Totalt inrikes (%)'],...overviewRows(p).map(row=>[row.age,...[row.home,row.city,row.diff,row.total].map(v=>v.toFixed(1).replace('.',','))])];
     if(p.overview)return [['Ålder vid slutåret','Kvar i samma bostad (%)','Kvar i Göteborg (%)','Övriga kvar i Göteborg (procentenheter)'],...overviewRows(p).map(row=>[row.age,...[row.home,row.city,row.diff].map(v=>v.toFixed(1).replace('.',','))])];
     const labels=p.profile?D.aldrar_namn:D.ar;

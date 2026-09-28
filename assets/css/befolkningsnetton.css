@@ -1,0 +1,21 @@
+#steg-1 .population-nets{grid-column:1/-1;margin:0;border-top:2px solid #3f5564;padding-top:1rem;min-width:0;}
+#steg-1 .population-nets h3{font-size:1.35rem;line-height:1.4;margin:0 0 .5rem;}
+#steg-1 .population-nets p{max-width:none;font-size:.85rem;line-height:1.6;margin:.4rem 0;}
+.population-nets-panels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2rem;margin-top:1rem;}
+.population-nets-panels h4{font-size:1rem;font-weight:800;margin:0;}
+#steg-1 p.population-nets-definition{font-size:.75rem;min-height:2.8em;line-height:1.4;}
+.population-nets-panels svg{display:block;width:100%;height:auto;font-family:'Open Sans',Arial,sans-serif;}
+.population-nets-control{display:flex;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.9rem;}
+.population-nets-control input{width:180px;accent-color:#3f5564;}
+.population-nets-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:.7rem 0 1rem;}
+.population-nets-values span{display:block;font-size:.8rem;}.population-nets-values strong{font-size:1.3rem;}
+.population-nets-total{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.2rem;margin:1rem 0;background:#d1d9dc;color:#1f1f1f;}
+.population-nets-total span{font-size:1rem;font-weight:600;}.population-nets-total small{display:block;font-size:.8rem;margin-top:.25rem;}
+.population-nets-total>strong{font-size:1.8rem;white-space:nowrap;}.population-nets-total>strong small{display:inline;font-weight:400;}
+@media(max-width:550px){.population-nets-total{align-items:flex-start;flex-direction:column;gap:.6rem;}}
+.population-nets details{margin-top:.7rem;font-size:.85rem;}.population-nets summary{cursor:pointer;}
+.population-nets-table{overflow:auto;}.population-nets table{border-collapse:collapse;width:100%;margin:.7rem 0;}.population-nets th,.population-nets td{text-align:right;padding:.4rem;border-bottom:1px solid #d1d9dc;}.population-nets th:first-child{text-align:left;}
+.population-nets-csv{font:inherit;border:1px solid #3f5564;background:white;color:#1f1f1f;padding:.5rem .8rem;border-radius:4px;cursor:pointer;}
+.scen>#steg-1.steg{row-gap:1.6rem;}
+@media(min-width:900px){#steg-1 .intro-nyckeltal{gap:1.5rem;}}
+@media(max-width:700px){.population-nets-panels{grid-template-columns:1fr;}.population-nets-panels svg{max-width:480px;}.population-nets-values{gap:.5rem;}.population-nets-values strong{font-size:1.05rem;}}

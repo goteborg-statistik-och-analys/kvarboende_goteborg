@@ -6,7 +6,17 @@ function label(s,x,y,text,attrs={}){s.append(node('text',{x,y,fill:'#1f1f1f','fo
 
 
 
-async function png(source,title){await document.fonts.ready;const clone=source.cloneNode(true),vb=source.viewBox.baseVal;clone.setAttribute('xmlns',NS);clone.setAttribute('width',vb.width);clone.setAttribute('height',vb.height);const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'}));try{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=(vb.width+40)*2;c.height=(vb.height+115)*2;const ctx=c.getContext('2d');ctx.scale(2,2);ctx.fillStyle='white';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#1f1f1f';ctx.font='600 16px Arial';ctx.fillText(title,20,25);ctx.drawImage(img,20,45);ctx.font='11px Arial';ctx.fillText(source.closest('.kh').querySelector('.kh__reading').textContent,20,vb.height+68);ctx.fillText('Källa: SCB, specialbeställning gjord inom arbetsprojektet Agenda2030 och Jämlikt Göteborg.',20,vb.height+85);return await new Promise(resolve=>c.toBlob(resolve,'image/png'));}finally{URL.revokeObjectURL(url);}}
+async function png(source,title){
+await document.fonts.ready;
+const clone=source.cloneNode(true),vb=source.viewBox.baseVal,box=source.closest('.kh'),two=box.id==='kh-typ',periods=two||box.id==='kh-period';
+clone.setAttribute('xmlns',NS);clone.setAttribute('width',vb.width);clone.setAttribute('height',vb.height);
+const url=URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(clone)],{type:'image/svg+xml'}));
+try{const img=new Image();img.src=url;await img.decode();const c=document.createElement('canvas');c.width=(vb.width+40)*2;c.height=(vb.height+160)*2;const ctx=c.getContext('2d');ctx.scale(2,2);ctx.fillStyle='white';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#1f1f1f';ctx.font='600 16px Arial';
+const choice=box.querySelector('.kh__controls button[aria-pressed="true"]');ctx.fillText(title+(two&&choice?' · '+choice.textContent:''),20,25);
+ctx.font='12px Arial';ctx.fillText('Göteborg · '+(two?'Två av fyra hushållsutfall':periods?'Fyra hushållsutfall':'Personer och hushåll vid två årsskiften'),20,45);
+if(periods){[['#3f5564','1 år · 2024–2025',20],['#008391','5 år · 2020–2025',260]].forEach(([color,text,x])=>{ctx.fillStyle=color;ctx.fillRect(x,58,12,9);ctx.fillStyle='#1f1f1f';ctx.fillText(text,x+19,67);});}
+ctx.drawImage(img,20,85);ctx.fillStyle='#1f1f1f';ctx.font='11px Arial';ctx.fillText(box.querySelector('.kh__reading').textContent,20,vb.height+111);ctx.fillText(window.RAPPORT_KALLA,20,vb.height+133);return await new Promise(resolve=>c.toBlob(resolve,'image/png'));
+}finally{URL.revokeObjectURL(url);}}
 function exportGraphic(id,source,title){const box=$(id);box.className='kh__export';const b=document.createElement('button');b.type='button';b.textContent='Kopiera '+(source==='k6-karta'?'karta':'diagram');const a=document.createElement('a');a.hidden=true;a.className='kh__download';a.textContent='Hämta PNG';const status=document.createElement('span');status.setAttribute('role','status');box.append(b,a,status);let url;b.onclick=async()=>{b.disabled=true;status.textContent='Skapar bild…';a.hidden=true;const image=png($(source).querySelector('svg'),$(source).closest('.kh').querySelector('h3').textContent);try{await navigator.clipboard.write([new ClipboardItem({'image/png':image})]);status.textContent='Bilden är kopierad.';}catch{try{const blob=await image;if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(blob);a.href=url;a.download=source+'.png';a.hidden=false;status.textContent='Hämta bilden om kopiering inte stöds.';}catch{status.textContent='Bilden kunde inte skapas.';}}finally{b.disabled=false;}};}
 
 
