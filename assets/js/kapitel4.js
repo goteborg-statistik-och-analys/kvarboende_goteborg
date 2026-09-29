@@ -42,7 +42,7 @@
   for(const p of [total,age]){p.scaleLabel=html('span');p.zoom=button('Visa 0–100 %',()=>{p.full=!p.full;drawCharts();});p.scale.append(p.scaleLabel,p.zoom);p.figure.setAttribute('role','region');p.figure.setAttribute('aria-label','Diagram, kan rullas i sidled på liten skärm');p.figure.tabIndex=0;}
   total.full=true;total.zoom.remove();
   total.controls.remove();age.groupButtons=groups.map((g,i)=>{const b=button(g.name,()=>{age.group=i;age.visible=new Set(g.ages);drawCharts();});age.controls.append(b);return b;});age.controls.setAttribute('role','group');age.controls.setAttribute('aria-label','Välj åldersjämförelse');
-  age.lines=html('div','k4__val');age.lines.setAttribute('role','group');age.lines.setAttribute('aria-label','Markera åldersgrupper i färg eller visa dem i grått');age.figure.after(age.lines);
+  age.lines=html('div','k4__val');age.lines.setAttribute('role','group');age.lines.setAttribute('aria-label','Markera åldersgrupper i färg eller visa åldersgrupperna i grått');age.figure.after(age.lines);
   function totalSvg(width){
     const W=Math.max(520,width),H=338,left=174,right=W-18,x=v=>left+v/100*(right-left),y=i=>55+i*40;
     const svg=node('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'83,1 procent kvar i samma bostad, 94,5 i Göteborg och 96,2 i Göteborgsregionen. Nivåerna innesluter varandra.'});

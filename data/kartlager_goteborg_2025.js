@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------
    Kartlager för kapitel 4. Ringriktningen korrigerad till RFC 7946
-   (sf::st_write skrev dem åt fel håll för d3-geo, se metodpanelen
+   (sf::st_write skrev polygonerna åt fel håll för d3-geo, se metodpanelen
    i koden/konversationen — utan fixen ger d3 hela jordklotet som
    utbredning för varje litet område).
    ------------------------------------------------------------ */
