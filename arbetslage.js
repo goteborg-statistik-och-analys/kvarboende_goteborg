@@ -3,8 +3,8 @@
   box.className='arbetslage';box.setAttribute('aria-label','Om arbetsversionen');
   const title=document.createElement('strong');title.textContent='Arbetsversion · Internt arbetsmaterial.';
   const note=document.createElement('span');note.textContent='Visas bäst i webbläsare på dator.';
-  const review=document.createElement('span');review.textContent='Beräkningarna är inte fullständigt publiceringsgranskade.';
-  box.append(title,note,review);document.body.append(box);
+
+  box.append(title,note);document.body.append(box);
   const plots=[...document.querySelectorAll('[id$="-plot"],.k4__figur')];
   function updateOverflow(){plots.forEach(plot=>{
     const overflow=plot.scrollWidth>plot.clientWidth+2;
